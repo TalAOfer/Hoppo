@@ -377,3 +377,7 @@ function checkColliderSide(){
         return (player.colliderBox.position.x)
     }
 }
+
+function sliderReset(){
+        c.setTransform(1, 0, 0, 1, 0, 0);
+}

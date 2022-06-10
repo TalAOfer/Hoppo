@@ -25,11 +25,11 @@ const jumpMaxGauge = 2000;
 const background = new Sprite({
     position: {
         x: 0,
-        y: 0
+        y: -720
     },
     width: 480,
-    height: 720,
-    imgSrc: './img/Background/bgreal-export.png'
+    height: 1440,
+    imgSrc: './img/Background/bigBGforHoppo.png'
 })
 //Instances of platforms with colliders in mid
 const platforms = [new Sprite({
@@ -485,6 +485,7 @@ let keyReleased = {};
 let lastKey;
 let keyUp;
 
+let scroll = 0
 const fps = 90
 //Handling the global updating , gets called every frame
 function animate(){
@@ -492,11 +493,24 @@ function animate(){
     setTimeout(() => {
         window.requestAnimationFrame(animate)
         //update current scene
+        if(player.position.y < 360){
+            scroll = player.velocity.y / 1.2
+            c.translate(0,(-scroll))
+        }else {
+            sliderReset()
+            //c.setTransform(1, 0, 0, 1, 0, 0);
+
+        }
+        c.save();
         currentScene.update();
         //update the player 
         player.update();
+        console.log(player.velocity.y);
+        if(player.isOnPlatform){
+            console.log(player.position)
+        }
         //handles scene changing 
-        sceneHandler();
+        //sceneHandler();
         //check if jump is at max gauge if true jump 
         if(jumpGauge >= jumpMaxGauge){
             console.log('max gauge')
