@@ -1,7 +1,7 @@
 //const canvas = document.querySelector('canvas');
 const canvas = document.createElement('canvas')
 const c = canvas.getContext('2d');
-
+//tomer push check
 const music23 = new Audio('./audio/scene23music.wav')
 music23.loop = true
 const music4 = new Audio('./audio/scene4music.wav')
