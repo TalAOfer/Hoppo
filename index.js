@@ -180,24 +180,25 @@ function animate(){
             jumpGauge = 0
         }
         // check collision of all current scene's platforms in array and stop player if true
-        currentScene.platforms.forEach(platform => {
-            if(platform.collider.isActive){
-                if(player.colliderBox.position.y + player.colliderBox.height <= platform.collider.position.y 
-                    && player.colliderBox.position.y + player.colliderBox.height + player.velocity.y >= platform.collider.position.y
-                    && checkColliderSide() + player.colliderBox.width >= platform.collider.position.x - 5
-                    && checkColliderSide() <= platform.collider.position.x + platform.collider.width - 1){
-                        if(player.isOnPlatform === false){
-                                playAudioOnce('landSfx')
-                                //console.log('ground')
-                        }
-                        player.isOnPlatform = true;
-                        player.isJumping = false;
-                        keyReleased[87] = false
-                        player.velocity.y = 0;
-                        player.velocity.x = 0;
-                }
-            }
-        })
+        // currentScene.platforms.forEach(platform => {
+        //     if(platform.collider.isActive){
+        //         if(player.colliderBox.position.y + player.colliderBox.height <= platform.collider.position.y 
+        //             && player.colliderBox.position.y + player.colliderBox.height + player.velocity.y >= platform.collider.position.y
+        //             && checkColliderSide() + player.colliderBox.width >= platform.collider.position.x - 5
+        //             && checkColliderSide() <= platform.collider.position.x + platform.collider.width - 1){
+        //                 if(player.isOnPlatform === false){
+        //                         playAudioOnce('landSfx')
+        //                         //console.log('ground')
+        //                 }
+        //                 player.isOnPlatform = true;
+        //                 player.isJumping = false;
+        //                 keyReleased[87] = false
+        //                 player.velocity.y = 0;
+        //                 player.velocity.x = 0;
+        //         }
+        //     }
+        // })
+        checkPlatformCollision(player)
         keyHandlerFunc()
     }
     ,1000/fps)

@@ -58,7 +58,7 @@ class Character{
 
         /*
         c.fillStyle = 'red'
-        c.fillRect(checkColliderSide() , this.colliderBox.position.y , this.colliderBox.width ,this.colliderBox.height )
+        c.fillRect(getColliderDirection() , this.colliderBox.position.y , this.colliderBox.width ,this.colliderBox.height )
         */
         
         if(keyPressed[87] && !this.isJumping){
@@ -80,92 +80,21 @@ class Character{
     }
     //handle specific instance updating for player
     update(){
-        //this.draw();
-        this.position.x += this.velocity.x;
-        this.position.y += this.velocity.y;
-        //detect canvas walls collide and bounce off
-        if((this.position.x + this.width >= canvas.width - 1 || this.position.x <= canvas.width - canvas.width + 1)
-            && !this.isOnPlatform){
-            playAudioOnce('wallSfx')
-            this.velocity.x *= -1
-            switch(player.currentSprite){
-                case player.sprites.idle.right:
-                    player.currentSprite = player.sprites.idle.left
-                    console.log('wtf1')
-                    break;
-                case player.sprites.idle.left:
-                    player.currentSprite = player.sprites.idle.right
-                    console.log('wtf2')
-                    break;
-            }
-            //this.velocity.x *= -1
-        }
-        if(this.position.x + this.width + 1 === canvas.width){
-            this.velocity.x--
-        }else if(this.position.x - 1 <= canvas.width - canvas.width){
-            this.velocity.x++
-        }
-
-    
-        
-    currentScene.platforms.forEach(platform => {
-        if(platform.collider.isWall){
-            if(platform.collider.isActive){
-                if(player.colliderBox.position.y + player.colliderBox.height <= platform.collider.position.y 
-                    && player.colliderBox.position.y + player.colliderBox.height + player.velocity.y >= platform.collider.position.y
-                    && checkColliderSide() + player.colliderBox.width >= platform.collider.position.x - 5
-                    && checkColliderSide() <= platform.collider.position.x + platform.collider.width - 1){
-                        if(player.isOnPlatform === false){
-                                playAudioOnce('landSfx')
-                        }
-                        player.isOnPlatform = true;
-                        player.isJumping = false;
-                        keyReleased[87] = false
-                        player.velocity.y = 0;
-                        player.velocity.x = 0;
-                }
-            }
-            if(player.position.y <= platform.position.y + platform.height
-                && player.colliderBox.position.y + player.colliderBox.height + player.velocity.y >= platform.collider.position.y
-                && checkColliderSide() + player.colliderBox.width >= platform.collider.position.x
-                && checkColliderSide() <= platform.collider.position.x + platform.collider.width
-                && !this.isOnPlatform){
-                    if(this.isShovedY === false && this.isShovedX === true){
-                        player.velocity.y *= -1
-                        playAudioOnce('wallSfx')
-                        this.isShovedY = true
-                        setTimeout(() => this.isShovedY = false, 100)
-                    }
-                }
-        }
-    })
-        //detect specific platform walls and bounce off thier x
+        applyVelocity(this)
+        checkBorderBounce(this)
+        /*check collision for walls and headbutt*/
         currentScene.platforms.forEach(platform => {
             if(platform.collider.isWall){
-                if(!(player.position.x + player.width + player.velocity.x <= platform.collider.position.x + 1
-                    || player.position.x + player.velocity.x >= platform.collider.position.x + platform.collider.width)){
-                        if(player.position.y <= platform.position.y + platform.height
-                            && player.position.y + player.height >= platform.position.y){
-                            if(this.isShovedX === false && !this.isOnPlatform){
-                                playAudioOnce('wallSfx')
-                                this.velocity.x *= -1
-                                switch(player.currentSprite){
-                                    case player.sprites.idle.right:
-                                        player.currentSprite = player.sprites.idle.left
-                                        break
-                                    case player.sprites.idle.left:
-                                        player.currentSprite = player.sprites.idle.right
-                                        break
-                                }
-                                console.log('huh ?')
-                                this.isShovedX = true
-                                setTimeout(() => this.isShovedX = false, 100)
-                            }
-                        }
-                }
+                checkPlatformCollision(this)
+                checkWallHeadbutt(this, platform)
+            }
+        })
+        //check wall collision and bounce off thier x
+        currentScene.platforms.forEach(platform => {
+            if(platform.collider.isWall){
+                checkWallCollide(this,platform)
             }
         }) 
-
         //detect floor collision and apply gravity
         if(!switchingScene){
             if(this.position.y + this.height + this.velocity.y >= canvas.height){
@@ -330,7 +259,7 @@ class Scene{
     
             /*
             c.fillStyle = 'red'
-            c.fillRect(checkColliderSide() , this.colliderBox.position.y , this.colliderBox.width ,this.colliderBox.height )
+            c.fillRect(getColliderDirection() , this.colliderBox.position.y , this.colliderBox.width ,this.colliderBox.height )
             */
             
             if(keyPressed[87] && !player.isJumping){
@@ -373,14 +302,6 @@ class Scene{
     }
     update(){
         this.draw();
-    }
-}
-
-function checkColliderSide(){
-    if(player.currentSprite === player.sprites.idle.right){
-        return (player.colliderBox.position.x + player.width - 32)
-    } else if(player.currentSprite === player.sprites.idle.left){
-        return (player.colliderBox.position.x)
     }
 }
 
@@ -442,10 +363,10 @@ function renderGame(scene){
             (player.img.width / player.frameMax) * player.scale,
             player.img.height)
 
-        /*
-        c.fillStyle = 'red'
-        c.fillRect(checkColliderSide() , this.colliderBox.position.y , this.colliderBox.width ,this.colliderBox.height )
-        */
+        
+        // c.fillStyle = 'red'
+        // c.fillRect(getColliderDirection() , player.colliderBox.position.y , player.colliderBox.width ,player.colliderBox.height )
+        
         
         if(keyPressed[87] && !player.isJumping){
 
