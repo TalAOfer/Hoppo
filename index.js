@@ -83,7 +83,57 @@ const platforms = [new Sprite({
     imgSrc: './img/Background/scene1ground.png',
     borderY: 1,
     borderWidth: 1
-})]
+}),new Sprite({
+    position: {
+        x: 165,
+        y: 530 - 720
+    },
+    width: 105,
+    height: 53,
+    imgSrc: './img/Background/groundsmall.png',
+    borderY: 1,
+    borderWidth: 1
+}), new Sprite({
+    position: {
+        x: 185,
+        y: 100 - 720
+    },
+    width: 105,
+    height: 53,
+    imgSrc: './img/Background/groundsmall.png',
+    borderY: 1,
+    borderWidth: 1
+}), new Sprite({
+    position: {
+        x: 290,
+        y: 330 - 720
+    },
+    width: 105,
+    height: 53,
+    imgSrc: './img/Background/groundsmall.png',
+    borderY: 1,
+    borderWidth: 1
+}), new Sprite({
+    position: {
+        x: 0,
+        y: 220 - 720
+    },
+    width: 100,
+    height: 42,
+    imgSrc: './img/Background/platform1.png',
+    borderY: 1,
+    borderWidth: 1
+}),new Sprite({
+    position: {
+        x: 280,
+        y: -30 - 720
+    },
+    width: 30,
+    height: 171,
+    imgSrc: './img/Background/highwallnormal.png',
+    borderY : 1,
+    borderWidth: 1,
+    isWall: true})]
 
 const backgroundScene2 = new Sprite({
     position: {
@@ -435,25 +485,6 @@ const platformsScene6 = [new Sprite({
 })]
 
 
-//activates platforms colliders
-background.collider.isActive = false
-backgroundScene2.collider.isActive = false
-backgroundScene3.collider.isActive = false
-backgroundScene4.collider.isActive = false
-backgroundScene5.collider.isActive = false
-backgroundScene6.collider.isActive = false
-
-//creating scene 1 and attaching a background and its platforms to it 
-const scene1 = new Scene(background,platforms)
-const scene2 = new Scene(backgroundScene2,platformsScene2)
-const scene3 = new Scene(backgroundScene3,platformsScene3);
-const scene4 = new Scene(backgroundScene4,platformsScene4);
-const scene5 = new Scene(backgroundScene5,platformsScene5);
-const scene6 = new Scene(backgroundScene6,platformsScene6);
-
-//defaulting current scene to scene 1
-let currentScene = scene1;
-
 //Instance of player
 const player = new Character({
     position: {
@@ -466,6 +497,29 @@ const player = new Character({
     width: 50,
     height: 71
 })
+
+const players = [player]
+
+
+//activates platforms colliders
+background.collider.isActive = false
+backgroundScene2.collider.isActive = false
+backgroundScene3.collider.isActive = false
+backgroundScene4.collider.isActive = false
+backgroundScene5.collider.isActive = false
+backgroundScene6.collider.isActive = false
+
+//creating scene 1 and attaching a background and its platforms to it 
+const scene1 = new Scene(background,platforms,players)
+const scene2 = new Scene(backgroundScene2,platformsScene2,players)
+const scene3 = new Scene(backgroundScene3,platformsScene3,players);
+const scene4 = new Scene(backgroundScene4,platformsScene4,players);
+const scene5 = new Scene(backgroundScene5,platformsScene5,players);
+const scene6 = new Scene(backgroundScene6,platformsScene6,players);
+
+//defaulting current scene to scene 1
+let currentScene = scene1;
+
 
 //data for key presses
 const keys = {
@@ -493,27 +547,30 @@ function animate(){
     setTimeout(() => {
         window.requestAnimationFrame(animate)
         //update current scene
-        if(player.position.y < 360){
+        if(player.position.y < 360 && player.position.y > -461){
             scroll = player.velocity.y / 1.2
             c.translate(0,(-scroll))
-        }else {
-            sliderReset()
-            //c.setTransform(1, 0, 0, 1, 0, 0);
-
+        }else if(player.position.y > 360){
+            c.setTransform(1, 0, 0, 1, 0, 0);
+        } else if(player.position.y < -461){
+            c.save();
+            c.restore()
         }
         c.save();
-        currentScene.update();
+
+        //currentScene.update();
+        renderGame(currentScene)
         //update the player 
         player.update();
-        console.log(player.velocity.y);
+        //console.log(player.position.y);
         if(player.isOnPlatform){
-            console.log(player.position)
+            //console.log(player.position)
         }
         //handles scene changing 
         //sceneHandler();
         //check if jump is at max gauge if true jump 
         if(jumpGauge >= jumpMaxGauge){
-            console.log('max gauge')
+            //console.log('max gauge')
             player.isJumping = true;
             player.chargeBar.tick.width = 3.7
             jumpGauge = jumpMaxGauge;
@@ -607,7 +664,7 @@ function animate(){
                     && checkColliderSide() <= platform.collider.position.x + platform.collider.width - 1){
                         if(player.isOnPlatform === false){
                                 playAudioOnce('landSfx')
-                                console.log('ground')
+                                //console.log('ground')
                         }
                         player.isOnPlatform = true;
                         player.isJumping = false;
@@ -707,4 +764,3 @@ function endGame(){
     container.prepend(menu2)
     currentScene = scene1
 }
-

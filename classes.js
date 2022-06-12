@@ -80,7 +80,7 @@ class Character{
     }
     //handle specific instance updating for player
     update(){
-        this.draw();
+        //this.draw();
         this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;
         //detect canvas walls collide and bounce off
@@ -280,14 +280,15 @@ class Sprite{
     }
     //handle specific instance updating
     update(){
-        this.draw();
+        //this.draw();
     }
 }  
 
 class Scene{
-    constructor(backgroundSprite, platformsSprite){
+    constructor(backgroundSprite, platformsSprite, players){
         this.backgroundSprite = backgroundSprite
         this.platformsSprite = platformsSprite
+        this.players = players
     }
     draw(){
         //draw background
@@ -307,7 +308,42 @@ class Scene{
             this.backgroundSprite.collider.position.y, 
             this.backgroundSprite.collider.width, 
             this.backgroundSprite.collider.height)
-
+        
+        //draw players
+        this.players.forEach(player => {
+            c.drawImage(
+                player.currentSprite,
+                player.frameCurrent * (player.img.width / player.frameMax),
+                0,
+                player.img.width / player.frameMax,
+                player.img.height ,
+                player.position.x,
+                player.position.y,
+                (player.img.width / player.frameMax) * player.scale,
+                player.img.height)
+    
+            /*
+            c.fillStyle = 'red'
+            c.fillRect(checkColliderSide() , this.colliderBox.position.y , this.colliderBox.width ,this.colliderBox.height )
+            */
+            
+            if(keyPressed[87] && !player.isJumping){
+    
+                c.fillStyle = '#433732'
+                c.fillRect(player.currentSprite === player.sprites.idle.right ? player.position.x : player.position.x - 10,
+                player.chargeBar.position.y - 20,
+                player.chargeBar.width,
+                player.chargeBar.height)
+    
+                c.fillStyle = '#EAA141'
+                c.fillRect((player.currentSprite === player.sprites.idle.right ? player.position.x : player.position.x - 10) + 1,
+                player.chargeBar.position.y - 19,
+                player.chargeBar.tick.width,
+                player.chargeBar.tick.height)
+    
+                player.chargeBar.tick.width += 0.9
+            }
+        })    
         //draw each platform
         this.platformsSprite.forEach(platform => {
             c.drawImage(
@@ -380,4 +416,85 @@ function checkColliderSide(){
 
 function sliderReset(){
         c.setTransform(1, 0, 0, 1, 0, 0);
+}
+
+function renderGame(scene){
+    const backgroundSprite = scene.backgroundSprite
+    const platformsSprite = scene.platformsSprite
+    const players = scene.players
+
+    //draw background
+    c.drawImage(
+    backgroundSprite.img,
+    backgroundSprite.frameCurrent * (backgroundSprite.img.width / backgroundSprite.frameMax),
+    0,
+    backgroundSprite.img.width / backgroundSprite.frameMax,
+    backgroundSprite.img.height ,
+    backgroundSprite.position.x,
+    backgroundSprite.position.y,
+    (backgroundSprite.img.width / backgroundSprite.frameMax) * backgroundSprite.scale,
+    backgroundSprite.img.height * backgroundSprite.scale)
+
+    //draw background collider
+    c.fillRect(backgroundSprite.collider.position.x,
+        backgroundSprite.collider.position.y, 
+        backgroundSprite.collider.width, 
+        backgroundSprite.collider.height)
+    
+
+    //draw each platform
+    platformsSprite.forEach(platform => {
+        c.drawImage(
+            platform.img,
+            platform.frameCurrent * (platform.img.width / platform.frameMax),
+            0,
+            platform.img.width / platform.frameMax,
+            platform.img.height ,
+            platform.position.x,
+            platform.position.y,
+            (platform.img.width / platform.frameMax) * platform.scale,
+            platform.img.height * platform.scale)
+
+        //draw each platform collider
+        /*
+        c.fillRect(platform.collider.position.x,
+            platform.collider.position.y, 
+            platform.collider.width, 
+            platform.collider.height)*/
+    })
+    //draw players
+    players.forEach(player => {
+        c.drawImage(
+            player.currentSprite,
+            player.frameCurrent * (player.img.width / player.frameMax),
+            0,
+            player.img.width / player.frameMax,
+            player.img.height ,
+            player.position.x,
+            player.position.y,
+            (player.img.width / player.frameMax) * player.scale,
+            player.img.height)
+
+        /*
+        c.fillStyle = 'red'
+        c.fillRect(checkColliderSide() , this.colliderBox.position.y , this.colliderBox.width ,this.colliderBox.height )
+        */
+        
+        if(keyPressed[87] && !player.isJumping){
+
+            c.fillStyle = '#433732'
+            c.fillRect(player.currentSprite === player.sprites.idle.right ? player.position.x : player.position.x - 10,
+            player.chargeBar.position.y - 20,
+            player.chargeBar.width,
+            player.chargeBar.height)
+
+            c.fillStyle = '#EAA141'
+            c.fillRect((player.currentSprite === player.sprites.idle.right ? player.position.x : player.position.x - 10) + 1,
+            player.chargeBar.position.y - 19,
+            player.chargeBar.tick.width,
+            player.chargeBar.tick.height)
+
+            player.chargeBar.tick.width += 0.9
+        }
+    })
 }
