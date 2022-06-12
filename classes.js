@@ -108,7 +108,7 @@ class Character{
 
     
         
-    currentScene.platformsSprite.forEach(platform => {
+    currentScene.platforms.forEach(platform => {
         if(platform.collider.isWall){
             if(platform.collider.isActive){
                 if(player.colliderBox.position.y + player.colliderBox.height <= platform.collider.position.y 
@@ -140,7 +140,7 @@ class Character{
         }
     })
         //detect specific platform walls and bounce off thier x
-        currentScene.platformsSprite.forEach(platform => {
+        currentScene.platforms.forEach(platform => {
             if(platform.collider.isWall){
                 if(!(player.position.x + player.width + player.velocity.x <= platform.collider.position.x + 1
                     || player.position.x + player.velocity.x >= platform.collider.position.x + platform.collider.width)){
@@ -245,7 +245,7 @@ class Character{
 }
 
 class Sprite{
-    constructor({position, imgSrc, width, height, borderY = 1, borderWidth = 1 ,isWall = false, scale = 1,frameMax = 1}){
+    constructor({position, imgSrc, width, height, borderY = 1, borderWidth = 1 ,isWall = false, isActive = true ,scale = 1,frameMax = 1}){
         this.img = new Image(width, height);
         this.img.src = imgSrc;
         this.position = position
@@ -260,7 +260,7 @@ class Sprite{
                 y: borderY === 1 ? this.position.y : borderY},
             width: borderWidth === 1 ? this.width : borderWidth,
             height: this.height-this.height,
-            isActive: true,
+            isActive: isActive === true ? true : isActive,
             isWall : isWall === false ? false : isWall
         }
     }
@@ -284,30 +284,36 @@ class Sprite{
     }
 }  
 
+class Level{
+    constructor(obj){
+        this.background = obj.background
+        this.platforms = obj.platforms
+    }
+}
 class Scene{
-    constructor(backgroundSprite, platformsSprite, players){
-        this.backgroundSprite = backgroundSprite
-        this.platformsSprite = platformsSprite
+    constructor(level, players){
+        this.background = level.background
+        this.platforms = level.platforms
         this.players = players
     }
     draw(){
         //draw background
         c.drawImage(
-            this.backgroundSprite.img,
-            this.backgroundSprite.frameCurrent * (this.backgroundSprite.img.width / this.backgroundSprite.frameMax),
+            this.background.img,
+            this.background.frameCurrent * (this.background.img.width / this.background.frameMax),
             0,
-            this.backgroundSprite.img.width / this.backgroundSprite.frameMax,
-            this.backgroundSprite.img.height ,
-            this.backgroundSprite.position.x,
-            this.backgroundSprite.position.y,
-            (this.backgroundSprite.img.width / this.backgroundSprite.frameMax) * this.backgroundSprite.scale,
-            this.backgroundSprite.img.height * this.backgroundSprite.scale)
+            this.background.img.width / this.background.frameMax,
+            this.background.img.height ,
+            this.background.position.x,
+            this.background.position.y,
+            (this.background.img.width / this.background.frameMax) * this.background.scale,
+            this.background.img.height * this.background.scale)
 
         //draw background collider
-        c.fillRect(this.backgroundSprite.collider.position.x,
-            this.backgroundSprite.collider.position.y, 
-            this.backgroundSprite.collider.width, 
-            this.backgroundSprite.collider.height)
+        c.fillRect(this.background.collider.position.x,
+            this.background.collider.position.y, 
+            this.background.collider.width, 
+            this.background.collider.height)
         
         //draw players
         this.players.forEach(player => {
@@ -345,7 +351,7 @@ class Scene{
             }
         })    
         //draw each platform
-        this.platformsSprite.forEach(platform => {
+        this.platforms.forEach(platform => {
             c.drawImage(
                 platform.img,
                 platform.frameCurrent * (platform.img.width / platform.frameMax),
@@ -419,31 +425,32 @@ function sliderReset(){
 }
 
 function renderGame(scene){
-    const backgroundSprite = scene.backgroundSprite
-    const platformsSprite = scene.platformsSprite
+    //console.log(scene)
+    const background = scene.background
+    const platforms = scene.platforms
     const players = scene.players
 
     //draw background
     c.drawImage(
-    backgroundSprite.img,
-    backgroundSprite.frameCurrent * (backgroundSprite.img.width / backgroundSprite.frameMax),
+    background.img,
+    background.frameCurrent * (background.img.width / background.frameMax),
     0,
-    backgroundSprite.img.width / backgroundSprite.frameMax,
-    backgroundSprite.img.height ,
-    backgroundSprite.position.x,
-    backgroundSprite.position.y,
-    (backgroundSprite.img.width / backgroundSprite.frameMax) * backgroundSprite.scale,
-    backgroundSprite.img.height * backgroundSprite.scale)
+    background.img.width / background.frameMax,
+    background.img.height ,
+    background.position.x,
+    background.position.y,
+    (background.img.width / background.frameMax) * background.scale,
+    background.img.height * background.scale)
 
     //draw background collider
-    c.fillRect(backgroundSprite.collider.position.x,
-        backgroundSprite.collider.position.y, 
-        backgroundSprite.collider.width, 
-        backgroundSprite.collider.height)
+    c.fillRect(background.collider.position.x,
+        background.collider.position.y, 
+        background.collider.width, 
+        background.collider.height)
     
 
     //draw each platform
-    platformsSprite.forEach(platform => {
+    platforms.forEach(platform => {
         c.drawImage(
             platform.img,
             platform.frameCurrent * (platform.img.width / platform.frameMax),
