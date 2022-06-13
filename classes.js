@@ -1,3 +1,53 @@
+class Sprite {
+    constructor({ position, imgSrc, width, height, borderY = 1, borderWidth = 1, isWall = false, isActive = true, scale = 1, frameMax = 1 }) {
+        this.img = new Image(width, height);
+        this.img.src = imgSrc;
+        this.position = position
+        this.height = this.img.height
+        this.width = this.img.width
+        this.scale = scale;
+        this.frameMax = frameMax;
+        this.currentFrame = 0
+        this.elapsedFrames = 0
+        this.holdFrames = 3
+        this.collider = {
+            position: {
+                x: this.position.x,
+                y: borderY === 1 ? this.position.y : borderY
+            },
+            width: borderWidth === 1 ? this.width : borderWidth,
+            height: this.height - this.height,
+            isActive: isActive === true ? true : isActive,
+            isWall: isWall === false ? false : isWall
+        }
+    }
+    //render the img and animate it 
+    draw() {
+        c.drawImage(
+            this.img,
+            this.currentFrame * (this.img.width / this.frameMax),
+            0,
+            this.img.width / this.frameMax,
+            this.img.height,
+            this.position.x - 30,
+            this.position.y - 25,
+            (this.img.width / this.frameMax) * this.scale,
+            this.img.height * this.scale)
+        c.fillRect(this.collider.position.x, this.collider.position.y, this.collider.width, this.collider.height)
+    }
+    //handle specific instance updating
+    update() {
+        this.draw();
+        this.elapsedFrames++
+        if (this.elapsedFrames % this.holdFrames === 0) {
+            if (this.currentFrame < this.frameMax - 1) {
+                this.currentFrame++
+            } else {
+                this.currentFrame = 0
+            }
+        }
+    } 
+}
 class Character {
     constructor({ position, velocity, width, height, scale = 1, frameMax = 1 }) {
         this.img = new Image(width, height)
@@ -7,7 +57,7 @@ class Character {
         this.width = width
         this.isGrounded = false
         this.isOnPlatform = false
-        this.frameCurrent = 0
+        this.currentFrame = 0
         this.frameMax = frameMax
         this.scale = scale
 
@@ -17,6 +67,20 @@ class Character {
                 left: new Image(50, 71)
             }
         }
+        this.punch = new Sprite({
+            position: this.position,
+            width: 2208,
+            height: 96,
+            imgSrc: './img/Background/hoppo-punch-animation.png',
+            borderY: 1,
+            borderWidth: 1,
+            isWall: false,
+            isActive: false,
+            scale: 1,
+            frameMax: 23
+        })
+        this.isAttacking = false
+
         this.sprites.idle.right.src = './img/Background/kangorooright.png'
         this.sprites.idle.left.src = './img/Background/kangorooleft.png'
         this.currentSprite = this.sprites.idle.right
@@ -27,21 +91,21 @@ class Character {
             height: this.height
         },
 
-        this.chargeBar = {
-            position: this.colliderBox.position,
-            width: 53,
-            height: 10,
-            tick: {
-                width: 3.7,
-                height: 8
-            }
-        },
-        
-        this.force = 0;
+            this.chargeBar = {
+                position: this.colliderBox.position,
+                width: 53,
+                height: 10,
+                tick: {
+                    width: 3.7,
+                    height: 8
+                }
+            },
+
+            this.force = 0;
         this.lastJump = Date.now(),
-        this.jumpGauge = 0,
-        this.isJumping = true,
-        this.canJump = false
+            this.jumpGauge = 0,
+            this.isJumping = true,
+            this.canJump = false
         this.isShovedX = false
         this.isShovedY = false
     }
@@ -49,7 +113,7 @@ class Character {
     draw() {
         c.drawImage(
             this.currentSprite,
-            this.frameCurrent * (this.img.width / this.frameMax),
+            this.currentFrame * (this.img.width / this.frameMax),
             0,
             this.img.width / this.frameMax,
             this.img.height,
@@ -102,48 +166,6 @@ class Character {
         checkPlatformCollision(this)
     }
 }
-
-class Sprite {
-    constructor({ position, imgSrc, width, height, borderY = 1, borderWidth = 1, isWall = false, isActive = true, scale = 1, frameMax = 1 }) {
-        this.img = new Image(width, height);
-        this.img.src = imgSrc;
-        this.position = position
-        this.height = this.img.height
-        this.width = this.img.width
-        this.scale = scale;
-        this.frameMax = frameMax;
-        this.frameCurrent = 0
-        this.collider = {
-            position: {
-                x: this.position.x,
-                y: borderY === 1 ? this.position.y : borderY
-            },
-            width: borderWidth === 1 ? this.width : borderWidth,
-            height: this.height - this.height,
-            isActive: isActive === true ? true : isActive,
-            isWall: isWall === false ? false : isWall
-        }
-    }
-    //render the img and animate it 
-    draw() {
-        c.drawImage(
-            this.img,
-            this.frameCurrent * (this.img.width / this.frameMax),
-            0,
-            this.img.width / this.frameMax,
-            this.img.height,
-            this.position.x,
-            this.position.y,
-            (this.img.width / this.frameMax) * this.scale,
-            this.img.height * this.scale)
-        c.fillRect(this.collider.position.x, this.collider.position.y, this.collider.width, this.collider.height)
-    }
-    //handle specific instance updating
-    update() {
-        //this.draw();
-    }
-}
-
 class Level {
     constructor(obj) {
         this.background = obj.background
@@ -160,7 +182,7 @@ class Scene {
         //draw background
         c.drawImage(
             this.background.img,
-            this.background.frameCurrent * (this.background.img.width / this.background.frameMax),
+            this.background.currentFrame * (this.background.img.width / this.background.frameMax),
             0,
             this.background.img.width / this.background.frameMax,
             this.background.img.height,
@@ -179,7 +201,7 @@ class Scene {
         this.players.forEach(player => {
             c.drawImage(
                 player.currentSprite,
-                player.frameCurrent * (player.img.width / player.frameMax),
+                player.currentFrame * (player.img.width / player.frameMax),
                 0,
                 player.img.width / player.frameMax,
                 player.img.height,
@@ -214,7 +236,7 @@ class Scene {
         this.platforms.forEach(platform => {
             c.drawImage(
                 platform.img,
-                platform.frameCurrent * (platform.img.width / platform.frameMax),
+                platform.currentFrame * (platform.img.width / platform.frameMax),
                 0,
                 platform.img.width / platform.frameMax,
                 platform.img.height,
@@ -245,7 +267,7 @@ function renderGame(scene) {
     //draw background
     c.drawImage(
         background.img,
-        background.frameCurrent * (background.img.width / background.frameMax),
+        background.currentFrame * (background.img.width / background.frameMax),
         0,
         background.img.width / background.frameMax,
         background.img.height,
@@ -265,7 +287,7 @@ function renderGame(scene) {
     platforms.forEach(platform => {
         c.drawImage(
             platform.img,
-            platform.frameCurrent * (platform.img.width / platform.frameMax),
+            platform.currentFrame * (platform.img.width / platform.frameMax),
             0,
             platform.img.width / platform.frameMax,
             platform.img.height,
@@ -285,7 +307,7 @@ function renderGame(scene) {
     players.forEach(player => {
         c.drawImage(
             player.currentSprite,
-            player.frameCurrent * (player.img.width / player.frameMax),
+            player.currentFrame * (player.img.width / player.frameMax),
             0,
             player.img.width / player.frameMax,
             player.img.height,
