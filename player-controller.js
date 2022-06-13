@@ -76,11 +76,15 @@ function keyHandlerFunc(player){
     console.log(player.punch.currentFrame < player.punch.frameMax)
     if(keyPressed[32]){
         lastKey = ''
-        player.punch.update()
+        if(player.currentSprite === player.sprites.idle.right)
+        player.punch.right.update(player)
+        if(player.currentSprite === player.sprites.idle.left)
+        player.punch.left.update(player)
     }
     if(keyReleased[32]){
         keyUp = 'space'
-        player.punch.currentFrame = 0
+        player.punch.right.currentFrame = 0
+        player.punch.left.currentFrame = 0
     }
     // d press check
     if(keyPressed[68]){

@@ -22,22 +22,25 @@ class Sprite {
         }
     }
     //render the img and animate it 
-    draw() {
+    draw(player) {
+        this.collider.position.x = player.position.x
+        this.collider.position.y = player.position.y
         c.drawImage(
             this.img,
             this.currentFrame * (this.img.width / this.frameMax),
             0,
             this.img.width / this.frameMax,
             this.img.height,
-            this.position.x - 30,
+            this.position.x + (player.currentSprite === player.sprites.idle.left ? - 36 : 0),
             this.position.y - 25,
             (this.img.width / this.frameMax) * this.scale,
             this.img.height * this.scale)
+        c.fillStyle = "black"
         c.fillRect(this.collider.position.x, this.collider.position.y, this.collider.width, this.collider.height)
     }
     //handle specific instance updating
-    update() {
-        this.draw();
+    update(player) {
+        this.draw(player);
         this.elapsedFrames++
         if (this.elapsedFrames % this.holdFrames === 0) {
             if (this.currentFrame < this.frameMax - 1) {
@@ -67,20 +70,35 @@ class Character {
                 left: new Image(50, 71)
             }
         }
-        this.punch = new Sprite({
-            position: this.position,
-            width: 2208,
-            height: 96,
-            imgSrc: './img/Background/hoppo-punch-animation.png',
-            borderY: 1,
-            borderWidth: 1,
-            isWall: false,
-            isActive: false,
-            scale: 1,
-            frameMax: 23
-        })
+        this.punch = {
+            right: new Sprite({
+                position: this.position,
+                width: 2208,
+                height: 96,
+                imgSrc: './img/Background/hoppo-punch-animation-right.png',
+                borderY: 1,
+                borderWidth: 1,
+                isWall: false,
+                isActive: false,
+                scale: 1,
+                frameMax: 23
+            }),
+            left:  new Sprite({
+                position: this.position,
+                width: 2208,
+                height: 96,
+                imgSrc: './img/Background/hoppo-punch-animation-left.png',
+                borderY: 1,
+                borderWidth: 1,
+                isWall: false,
+                isActive: false,
+                scale: 1,
+                frameMax: 23
+            })
+        }
         this.isAttacking = false
 
+        this
         this.sprites.idle.right.src = './img/Background/kangorooright.png'
         this.sprites.idle.left.src = './img/Background/kangorooleft.png'
         this.currentSprite = this.sprites.idle.right
