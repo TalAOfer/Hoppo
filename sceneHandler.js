@@ -65,3 +65,75 @@ function sceneHandler(){
         }
     }
 }
+
+// if(!switchingScene){
+//     if(this.position.y + this.height + this.velocity.y >= canvas.height){
+//         if(currentScene === scene1){
+//             if(player.isGrounded === false){
+//                 playAudioOnce('landSfx')
+//                 this.isGrounded = true;
+//             }
+//             this.velocity.y = 0;
+//             this.velocity.x = 0;
+//         } else{
+//             switch(currentScene){
+//                 case scene6: 
+//                     currentScene = scene5
+//                     playFade(music5)
+//                     gravity = 0.7
+//                     player.position.y = 0
+//                     switchingScene = true;
+//                     setTimeout(() => { switchingScene = false;
+//                     }, 10);
+//                     console.log(currentScene)
+//                     break
+//                 case scene5:
+//                     currentScene = scene4
+//                     player.position.y = 0
+//                     stopFade(music5)
+//                     playFade(music4)
+//                     switchingScene = true;
+//                     setTimeout(() => { switchingScene = false;
+                        
+//                     }, 10);
+//                     console.log(currentScene)
+//                     break
+//                 case scene4: 
+//                     currentScene = scene3
+//                     //music4.pause()
+//                     stopFade(music4)
+//                     playFade(music23)
+//                     player.position.y = 0
+//                     switchingScene = true;
+//                     setTimeout(() => { switchingScene = false;
+                        
+//                     }, 10);
+//                     console.log(currentScene)
+//                     break
+//                 case scene3: 
+//                     currentScene = scene2
+//                     player.position.y = 0
+//                     switchingScene = true;
+//                     setTimeout(() => { switchingScene = false;
+                        
+//                     }, 10);
+//                     console.log(currentScene)
+//                     break
+//                 case scene2: 
+//                     currentScene = scene1
+//                     stopFade(music23)
+//                     player.position.y = 0
+//                     switchingScene = true;
+//                     setTimeout(() => { switchingScene = false;
+                        
+//                     }, 10);
+//                     console.log(currentScene)
+//                     break
+//             }
+//         }
+//     } else {
+//         if(player.velocity.y <= 15){  
+//             this.velocity.y += gravity;}
+//         this.isGrounded = false;
+//     }
+//  }

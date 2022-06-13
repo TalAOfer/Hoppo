@@ -3,6 +3,16 @@ function applyVelocity(player) {
     player.position.y += player.velocity.y;
 }
 
+function applyGravity(player){
+    if (player.velocity.y <= 15) {
+        player.velocity.y += gravity;
+    }
+    player.isGrounded = false;
+    if (player.velocity.y === 0) {
+        player.isJumping = false;
+    }
+}
+
 function getColliderDirection() {
     if (player.currentSprite === player.sprites.idle.right) {
         return (player.colliderBox.position.x + player.width - 32)
