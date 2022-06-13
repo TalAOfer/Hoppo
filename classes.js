@@ -73,7 +73,7 @@ class Character {
         this.punch = {
             right: new Sprite({
                 position: this.position,
-                width: 2208,
+                width: 2016,
                 height: 96,
                 imgSrc: './img/Background/hoppo-punch-animation-right.png',
                 borderY: 1,
@@ -81,11 +81,11 @@ class Character {
                 isWall: false,
                 isActive: false,
                 scale: 1,
-                frameMax: 23
+                frameMax: 21
             }),
             left:  new Sprite({
                 position: this.position,
-                width: 2208,
+                width: 2016,
                 height: 96,
                 imgSrc: './img/Background/hoppo-punch-animation-left.png',
                 borderY: 1,
@@ -93,7 +93,7 @@ class Character {
                 isWall: false,
                 isActive: false,
                 scale: 1,
-                frameMax: 23
+                frameMax: 21
             })
         }
         this.isAttacking = false
