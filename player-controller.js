@@ -19,6 +19,10 @@ let keyUp;
 
 //Handle the players input when pressing down a key
 window.addEventListener('keydown', (event) => {
+    if(event.keyCode === 32){
+        keyPressed[event.keyCode || event.which] = true;
+        keyReleased[event.keyCode || event.which] = false;
+    }
     keyPressed[event.keyCode || event.which] = true;
 })
 
@@ -36,6 +40,11 @@ window.addEventListener('keyup', (event) => {
             },100)
             break
         case 65:
+            setTimeout(()=>{
+                keyPressed[event.keyCode || event.which] = false;
+                keyReleased[event.keyCode || event.which] = true;
+            },100)
+        case 32:
             setTimeout(()=>{
                 keyPressed[event.keyCode || event.which] = false;
                 keyReleased[event.keyCode || event.which] = true;
@@ -63,6 +72,15 @@ function keyHandlerFunc(player){
     // w release check
     if(keyReleased[87]){
         player.isJumping = true
+    }
+    console.log(player.punch.currentFrame < player.punch.frameMax)
+    if(keyPressed[32]){
+        lastKey = ''
+        player.punch.update()
+    }
+    if(keyReleased[32]){
+        keyUp = 'space'
+        player.punch.currentFrame = 0
     }
     // d press check
     if(keyPressed[68]){
