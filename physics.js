@@ -73,14 +73,14 @@ function _handlePlatformCollision(player) {
 function checkWallHeadbutt(player,platform){
     if(player.position.y <= platform.position.y + platform.height
         && player.colliderBox.position.y + player.colliderBox.height + player.velocity.y >= platform.collider.position.y
-        && getColliderDirection() + player.colliderBox.width >= platform.collider.position.x
-        && getColliderDirection() <= platform.collider.position.x + platform.collider.width
+        && getColliderDirection(player) + player.colliderBox.width >= platform.collider.position.x
+        && getColliderDirection(player) <= platform.collider.position.x + platform.collider.width
         && !player.isOnPlatform){
-            _handleWallHeadbutt()
+            _handleWallHeadbutt(player)
         }
 }
 
-function _handleWallHeadbutt(){
+function _handleWallHeadbutt(player){
     if(player.isShovedY === false && player.isShovedX === true){
         player.velocity.y *= -1
         playAudioOnce('wallSfx')
@@ -94,12 +94,12 @@ function checkWallCollide(player,platform){
         || player.position.x + player.velocity.x >= platform.collider.position.x + platform.collider.width)){
             if(player.position.y <= platform.position.y + platform.height
                 && player.position.y + player.height >= platform.position.y){
-                    _handleWallCollide();
+                    _handleWallCollide(player);
             }
     }
 }
 
-function _handleWallCollide(){
+function _handleWallCollide(player){
     if(player.isShovedX === false && !player.isOnPlatform){
         playAudioOnce('wallSfx')
         player.velocity.x *= -1
