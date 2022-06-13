@@ -10,7 +10,7 @@ function applyGravity(player){
     player.isGrounded = false;
 }
 
-function getColliderDirection() {
+function getColliderDirection(player) {
     if (player.currentSprite === player.sprites.idle.right) {
         return (player.colliderBox.position.x + player.width - 32)
     } else if (player.currentSprite === player.sprites.idle.left) {
@@ -50,16 +50,16 @@ function checkPlatformCollision(player) {
         if (platform.collider.isActive) {
             if (playerBottom <= platformTop
                 && playerBottom + player.velocity.y >= platformTop
-                && getColliderDirection() + player.colliderBox.width >= platform.collider.position.x - 1
-                && getColliderDirection() <= platform.collider.position.x + platform.collider.width - 1) {
-                   _handlePlatformCollision()
-                   
-            }else console.log('not collide');
+                && getColliderDirection(player) + player.colliderBox.width >= platform.collider.position.x - 1
+                && getColliderDirection(player) <= platform.collider.position.x + platform.collider.width - 1) {
+                   _handlePlatformCollision(player)
+ 
+            }
         }
     })
 }
 
-function _handlePlatformCollision() {
+function _handlePlatformCollision(player) {
     if (player.isOnPlatform === false) {
         playAudioOnce('landSfx')
     }

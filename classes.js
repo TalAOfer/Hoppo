@@ -27,19 +27,21 @@ class Character {
             height: this.height
         },
 
-            this.chargeBar = {
-                position: this.colliderBox.position,
-                width: 53,
-                height: 10,
-                tick: {
-                    width: 3.7,
-                    height: 8
-                }
-            },
-
-
-            this.isJumping = true,
-            this.canJump = false
+        this.chargeBar = {
+            position: this.colliderBox.position,
+            width: 53,
+            height: 10,
+            tick: {
+                width: 3.7,
+                height: 8
+            }
+        },
+        
+        this.force = 0;
+        this.lastJump = Date.now(),
+        this.jumpGauge = 0,
+        this.isJumping = true,
+        this.canJump = false
         this.isShovedX = false
         this.isShovedY = false
     }
