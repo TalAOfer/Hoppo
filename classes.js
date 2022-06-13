@@ -85,7 +85,6 @@ class Character {
         /*check collision for walls and headbutt*/
         currentScene.platforms.forEach(platform => {
             if (platform.collider.isWall) {
-                checkPlatformCollision(this)
                 checkWallHeadbutt(this, platform)
             }
         })
@@ -97,6 +96,8 @@ class Character {
         })
         //detect floor collision and apply gravity
         applyGravity(this)
+        handleJumpInput(this)
+        checkPlatformCollision(this)
     }
 }
 

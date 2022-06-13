@@ -8,9 +8,6 @@ function applyGravity(player){
         player.velocity.y += gravity;
     }
     player.isGrounded = false;
-    if (player.velocity.y === 0) {
-        player.isJumping = false;
-    }
 }
 
 function getColliderDirection() {
@@ -56,7 +53,8 @@ function checkPlatformCollision(player) {
                 && getColliderDirection() + player.colliderBox.width >= platform.collider.position.x - 1
                 && getColliderDirection() <= platform.collider.position.x + platform.collider.width - 1) {
                    _handlePlatformCollision()
-            }
+                   
+            }else console.log('not collide');
         }
     })
 }
