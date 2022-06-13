@@ -32,9 +32,11 @@ function animate(){
             handleCamera(player)
             renderGame(currentScene)
             //update the player 
+
+            keyHandlerFunc(player)
             player.update();
             //sceneHandler();
-            keyHandlerFunc(player)
+            
         })
  
     }

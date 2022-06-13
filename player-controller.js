@@ -58,7 +58,7 @@ function keyHandlerFunc(player){
        }
     }
     else {
-        player.jumpGauge = 0
+        //player.jumpGauge = 0
     }
     // w release check
     if(keyReleased[87]){
