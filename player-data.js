@@ -3,8 +3,8 @@ const players = []
 function createPlayer(){
     const player = new Character({
         position: {
-        x: 100,
-        y: 300},
+        x: getRandomInt(100,450),
+        y: 600},
         velocity: {
         x: 0,
         y: 0
