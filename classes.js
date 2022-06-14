@@ -39,15 +39,19 @@ class Sprite {
         c.fillRect(this.collider.position.x, this.collider.position.y, this.collider.width, this.collider.height)
     }
     //handle specific instance updating
-    update(player) {
+    update(player, onlyOnce, storedFrames = 0){
+        if(onlyOnce) return this.update(player, onlyOnce, storedFrames)
         this.draw(player);
-        player.lastAttack = Date.now()
         this.elapsedFrames++
         if (this.elapsedFrames % this.holdFrames === 0) {
-            if (this.currentFrame < this.frameMax - 1) {
+            if (this.currentFrame < this.frameMax) {
                 this.currentFrame++
+                storedFrames++
+                // console.log('frames ', this.currentFrame);
+                console.log('stored ', storedFrames);
             } else {
                 this.currentFrame = 0
+                storedFrames = 0 
                 player.isAttacking = false
             }
         }
@@ -98,7 +102,7 @@ class Character {
                 frameMax: 21
             })
         }
-        this.lastAttack = Date.now()
+        this.lastAttack = Date.now() - 1000
         this.isAttacking = false
 
         this.sprites.idle.right.src = './img/Background/kangorooright.png'
@@ -336,11 +340,18 @@ function renderGame(scene) {
             (player.img.width / player.frameMax) * player.scale,
             player.img.height)
 
-        if(player.isAttacking){
-            if(player.currentSprite === player.sprites.idle.right)
-            player.punch.right.update(player)
-            if(player.currentSprite === player.sprites.idle.left)
-            player.punch.left.update(player)
+        if (player.isAttacking) {
+            let onlyOnce = false
+            if (player.currentSprite === player.sprites.idle.right && onlyOnce === false) {
+                player.lastAttack = Date.now()
+                player.punch.right.update(player, onlyOnce)
+                onlyOnce = true
+            }
+            else if (player.currentSprite === player.sprites.idle.left && onlyOnce === false) {
+                player.lastAttack = Date.now()
+                player.punch.left.update(player, onlyOnce)
+                onlyOnce = true
+            }
         }
         // c.fillStyle = 'red'
         // c.fillRect(getColliderDirection() , player.colliderBox.position.y , player.colliderBox.width ,player.colliderBox.height )

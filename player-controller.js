@@ -75,8 +75,12 @@ function keyHandlerFunc(player){
         player.isJumping = true
     }
     if(keyPressed[32]){
-        lastKey = 'space'  
-        player.isAttacking = true
+        let dt = now - player.lastAttack
+        console.log(dt);
+        if(dt > 1000){
+            lastKey = 'space'  
+            player.isAttacking = true
+        }
     }
     if(keyReleased[32]){
         keyUp = 'space'
