@@ -41,12 +41,14 @@ class Sprite {
     //handle specific instance updating
     update(player) {
         this.draw(player);
+        player.lastAttack = Date.now()
         this.elapsedFrames++
         if (this.elapsedFrames % this.holdFrames === 0) {
             if (this.currentFrame < this.frameMax - 1) {
                 this.currentFrame++
             } else {
                 this.currentFrame = 0
+                player.isAttacking = false
             }
         }
     } 
@@ -96,9 +98,9 @@ class Character {
                 frameMax: 21
             })
         }
+        this.lastAttack = Date.now()
         this.isAttacking = false
 
-        this
         this.sprites.idle.right.src = './img/Background/kangorooright.png'
         this.sprites.idle.left.src = './img/Background/kangorooleft.png'
         this.currentSprite = this.sprites.idle.right
@@ -334,7 +336,12 @@ function renderGame(scene) {
             (player.img.width / player.frameMax) * player.scale,
             player.img.height)
 
-
+        if(player.isAttacking){
+            if(player.currentSprite === player.sprites.idle.right)
+            player.punch.right.update(player)
+            if(player.currentSprite === player.sprites.idle.left)
+            player.punch.left.update(player)
+        }
         // c.fillStyle = 'red'
         // c.fillRect(getColliderDirection() , player.colliderBox.position.y , player.colliderBox.width ,player.colliderBox.height )
 

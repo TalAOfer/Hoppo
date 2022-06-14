@@ -58,6 +58,7 @@ window.addEventListener('keyup', (event) => {
 
 function keyHandlerFunc(player){
     // w press check
+    const now = Date.now()
     if(keyPressed[87]){
         if(!player.isJumping){
             keys.w.pressed = true;
@@ -73,18 +74,12 @@ function keyHandlerFunc(player){
     if(keyReleased[87]){
         player.isJumping = true
     }
-    console.log(player.punch.currentFrame < player.punch.frameMax)
     if(keyPressed[32]){
-        lastKey = ''
-        if(player.currentSprite === player.sprites.idle.right)
-        player.punch.right.update(player)
-        if(player.currentSprite === player.sprites.idle.left)
-        player.punch.left.update(player)
+        lastKey = 'space'  
+        player.isAttacking = true
     }
     if(keyReleased[32]){
         keyUp = 'space'
-        player.punch.right.currentFrame = 0
-        player.punch.left.currentFrame = 0
     }
     // d press check
     if(keyPressed[68]){
