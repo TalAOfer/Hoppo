@@ -9,7 +9,7 @@ socket.on("connect", () => {
 
 
 socket.on('serverToClient', serverPlayers => {
-    console.log(serverPlayers);
+    // console.log(serverPlayers);
     playersFound = {}
     if(currentPlayers[mySocketId] === undefined){
         currentPlayers[mySocketId] = createPlayer(mySocketId);
@@ -22,6 +22,7 @@ socket.on('serverToClient', serverPlayers => {
         currentPlayers[id].position.x = serverPlayers[id].x
         currentPlayers[id].position.y = serverPlayers[id].y
         currentPlayers[id].currentSprite = serverPlayers[id].currentSprite
+        currentPlayers[id].isAttacking = serverPlayers[id].isAttacking
     }
     for(let id in currentPlayers){
         if(!playersFound[id]){

@@ -39,7 +39,8 @@ function animate(){
         socket.emit('updateToServer', {
             x: currentPlayers[mySocketId].position.x, 
             y: currentPlayers[mySocketId].position.y, 
-            currentSprite: currentPlayers[mySocketId].currentSprite
+            currentSprite: currentPlayers[mySocketId].currentSprite,
+            isAttacking : currentPlayers[mySocketId].isAttacking
         })
         // })
  

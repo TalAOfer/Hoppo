@@ -13,7 +13,11 @@ function createPlayer(socketId){
         height: 71
     })
     players[socketId] = player
-    socket.emit('newPlayer', {x: player.position.x , y: player.position.y, currentSprite: player.currentSprite})
+    socket.emit('newPlayer', {
+        x: player.position.x , 
+        y: player.position.y, 
+        currentSprite: player.currentSprite, 
+        isAttacking : false})
     // socket.emit('newPlayer', {x: player.position.x , y: player.position.y})
     return player
 }

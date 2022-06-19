@@ -342,19 +342,19 @@ function renderGame(scene) {
             (player.img.width / player.frameMax) * player.scale,
             player.img.height)
 
-        // if (player.isAttacking) {
-        //     let onlyOnce = false
-        //     if (player.currentSprite === player.sprites.idle.right && onlyOnce === false) {
-        //         player.lastAttack = Date.now()
-        //         player.punch.right.update(player, onlyOnce)
-        //         onlyOnce = true
-        //     }
-        //     else if (player.currentSprite === player.sprites.idle.left && onlyOnce === false) {
-        //         player.lastAttack = Date.now()
-        //         player.punch.left.update(player, onlyOnce)
-        //         onlyOnce = true
-        //     }
-        // }
+        if (player.isAttacking) {
+            let onlyOnce = false
+            if (player.currentSprite === 'right' && onlyOnce === false) {
+                player.lastAttack = Date.now()
+                player.punch.right.update(player, onlyOnce)
+                onlyOnce = true
+            }
+            else if (player.currentSprite === 'left' && onlyOnce === false) {
+                player.lastAttack = Date.now()
+                player.punch.left.update(player, onlyOnce)
+                onlyOnce = true
+            }
+        }
 
         // c.fillStyle = 'red'
         // c.fillRect(getColliderDirection() , player.colliderBox.position.y , player.colliderBox.width ,player.colliderBox.height )
