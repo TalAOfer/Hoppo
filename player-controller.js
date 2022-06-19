@@ -138,10 +138,10 @@ function handleJumpInput(player) {
 function jump(player, direction){
     playAudioOnce('jumpSfx')
     if(direction === 'left'){
-        player.currentSprite = player.sprites.idle.left
+        player.currentSprite = 'left'
         player.velocity.x = -4 - (player.jumpGauge / 550)
     }else if(direction === 'right'){
-        player.currentSprite = player.sprites.idle.right
+        player.currentSprite = 'right'
         player.velocity.x = 4 + (player.jumpGauge / 550)
     }
     player.velocity.y = -3 - (player.jumpGauge / 100)

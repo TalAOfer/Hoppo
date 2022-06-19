@@ -1,9 +1,9 @@
-const players = []
+const players = {}
 
-function createPlayer(){
+function createPlayer(socketId){
     const player = new Character({
         position: {
-        x: getRandomInt(100,450),
+        x: Math.floor(getRandomInt(100,450)),
         y: 600},
         velocity: {
         x: 0,
@@ -12,7 +12,10 @@ function createPlayer(){
         width: 50,
         height: 71
     })
-    players.push(player)
+    players[socketId] = player
+    socket.emit('newPlayer', {x: player.position.x , y: player.position.y, currentSprite: player.currentSprite})
+    // socket.emit('newPlayer', {x: player.position.x , y: player.position.y})
+    return player
 }
 
 function getPlayers(){

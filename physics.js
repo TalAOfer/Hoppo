@@ -1,6 +1,6 @@
 function applyVelocity(player) {
-    player.position.x += player.velocity.x;
-    player.position.y += player.velocity.y;
+    player.position.x = Math.floor(player.position.x) + Math.floor(player.velocity.x);
+    player.position.y = Math.floor(player.position.y) + Math.floor(player.velocity.y);
 }
 
 function applyGravity(player){
@@ -11,9 +11,9 @@ function applyGravity(player){
 }
 
 function getColliderDirection(player) {
-    if (player.currentSprite === player.sprites.idle.right) {
+    if (player.currentSprite === 'right') {
         return (player.colliderBox.position.x + player.width - 32)
-    } else if (player.currentSprite === player.sprites.idle.left) {
+    } else if (player.currentSprite === 'left') {
         return (player.colliderBox.position.x)
     }
 }
@@ -25,12 +25,12 @@ function checkBorderBounce(player) {
         playAudioOnce('wallSfx')
         player.velocity.x *= -1
         switch (player.currentSprite) {
-            case player.sprites.idle.right:
-                player.currentSprite = player.sprites.idle.left
+            case 'right':
+                player.currentSprite = 'left'
                 console.log('wtf1')
                 break;
-            case player.sprites.idle.left:
-                player.currentSprite = player.sprites.idle.right
+            case 'left':
+                player.currentSprite = 'right'
                 console.log('wtf2')
                 break;
         }
@@ -104,11 +104,11 @@ function _handleWallCollide(player){
         playAudioOnce('wallSfx')
         player.velocity.x *= -1
         switch(player.currentSprite){
-            case player.sprites.idle.right:
-                player.currentSprite = player.sprites.idle.left
+            case 'right':
+                player.currentSprite = 'left'
                 break
-            case player.sprites.idle.left:
-                player.currentSprite = player.sprites.idle.right
+            case 'left':
+                player.currentSprite = 'right'
                 break
         }
         player.isShovedX = true

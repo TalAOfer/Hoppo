@@ -31,7 +31,7 @@ class Sprite {
             0,
             this.img.width / this.frameMax,
             this.img.height,
-            this.position.x + (player.currentSprite === player.sprites.idle.left ? - 36 : 0),
+            this.position.x + (player.currentSprite === 'left' ? - 36 : 0),
             this.position.y - 25,
             (this.img.width / this.frameMax) * this.scale,
             this.img.height * this.scale)
@@ -107,7 +107,7 @@ class Character {
 
         this.sprites.idle.right.src = './img/Background/kangorooright.png'
         this.sprites.idle.left.src = './img/Background/kangorooleft.png'
-        this.currentSprite = this.sprites.idle.right
+        this.currentSprite = 'right'
 
         this.colliderBox = {
             position: this.position,
@@ -328,9 +328,11 @@ function renderGame(scene) {
             platform.collider.height)*/
     })
     //draw players
-    players.forEach(player => {
+    // players.forEach(player => {
+    for(let id in players){
+        const player = players[id]
         c.drawImage(
-            player.currentSprite,
+            player.currentSprite === 'right' ? player.sprites.idle.right : player.sprites.idle.left,
             player.currentFrame * (player.img.width / player.frameMax),
             0,
             player.img.width / player.frameMax,
@@ -340,19 +342,20 @@ function renderGame(scene) {
             (player.img.width / player.frameMax) * player.scale,
             player.img.height)
 
-        if (player.isAttacking) {
-            let onlyOnce = false
-            if (player.currentSprite === player.sprites.idle.right && onlyOnce === false) {
-                player.lastAttack = Date.now()
-                player.punch.right.update(player, onlyOnce)
-                onlyOnce = true
-            }
-            else if (player.currentSprite === player.sprites.idle.left && onlyOnce === false) {
-                player.lastAttack = Date.now()
-                player.punch.left.update(player, onlyOnce)
-                onlyOnce = true
-            }
-        }
+        // if (player.isAttacking) {
+        //     let onlyOnce = false
+        //     if (player.currentSprite === player.sprites.idle.right && onlyOnce === false) {
+        //         player.lastAttack = Date.now()
+        //         player.punch.right.update(player, onlyOnce)
+        //         onlyOnce = true
+        //     }
+        //     else if (player.currentSprite === player.sprites.idle.left && onlyOnce === false) {
+        //         player.lastAttack = Date.now()
+        //         player.punch.left.update(player, onlyOnce)
+        //         onlyOnce = true
+        //     }
+        // }
+
         // c.fillStyle = 'red'
         // c.fillRect(getColliderDirection() , player.colliderBox.position.y , player.colliderBox.width ,player.colliderBox.height )
 
@@ -373,5 +376,5 @@ function renderGame(scene) {
 
             player.chargeBar.tick.width += 0.9
         }
-    })
+    }
 }

@@ -10,12 +10,12 @@ c.fillRect(0, 0, canvas.width, canvas.height);
 let gravity = 0.7;
 const jumpMaxGauge = 2000;
 
-let currentPlayers = []
+// let currentPlayers = []
 
 //creating scene 1 and attaching a background and its platforms to it 
-const scene1 = new Scene(level1,players)
-const scene2 = new Scene(level2,players)
-const scene3 = new Scene(level3,players);
+const scene1 = new Scene(level1,currentPlayers)
+const scene2 = new Scene(level2,currentPlayers)
+const scene3 = new Scene(level3,currentPlayers);
 
 //defaulting current scene to scene 1
 let currentScene = scene1;
@@ -26,18 +26,22 @@ function animate(){
     //calls animate function every window frame
     setTimeout(() => {
         window.requestAnimationFrame(animate)
-        currentPlayers = getPlayers();
         //update current scene
-        currentPlayers.forEach(player => {
-            handleCamera(player)
-            renderGame(currentScene)
-            //update the player 
+        // currentPlayers.forEach(player => {
+        // console.log(currentPlayers);
 
-            keyHandlerFunc(player)
-            player.update();
-            //sceneHandler();
-            
+
+        currentScene.players = currentPlayers
+        handleCamera(currentPlayers[mySocketId])
+        renderGame(currentScene)
+        keyHandlerFunc(currentPlayers[mySocketId])
+        currentPlayers[mySocketId].update();
+        socket.emit('updateToServer', {
+            x: currentPlayers[mySocketId].position.x, 
+            y: currentPlayers[mySocketId].position.y, 
+            currentSprite: currentPlayers[mySocketId].currentSprite
         })
+        // })
  
     }
     ,1000/fps)
@@ -66,7 +70,7 @@ function endGame(){
 function handleCamera(player){
     let scroll = 0
     if(player.position.y < 360 && player.position.y > -461){
-        scroll = player.velocity.y / 1.2
+        scroll = Math.floor(player.velocity.y / 1.2)
         c.translate(0,(-scroll))
     }else if(player.position.y > 360){
         c.setTransform(1, 0, 0, 1, 0, 0);
