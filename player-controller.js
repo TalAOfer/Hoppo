@@ -76,7 +76,7 @@ function keyHandlerFunc(player){
     }
     if(keyPressed[32]){
         let dt = now - player.lastAttack
-        console.log(dt);
+        // console.log(dt);
         if(dt > 1000){
             lastKey = 'space'  
             player.isAttacking = true

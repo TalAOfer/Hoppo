@@ -9,6 +9,10 @@ function createPlayer(socketId){
         x: 0,
         y: 0
         },
+        force: {
+            x: 0,
+            y: 0
+        },
         width: 50,
         height: 71
     })

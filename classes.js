@@ -23,8 +23,12 @@ class Sprite {
     }
     //render the img and animate it 
     draw(player) {
-        this.collider.position.x = player.position.x
+        this.collider.position.x = getColliderDirection(player)
         this.collider.position.y = player.position.y
+        this.collider.width = this.width / this.frameMax + 10
+        this.collider.height = this.height
+        // console.log('x:', this.collider.position.x)
+        // console.log('y:', this.collider.position.y)
         c.drawImage(
             this.img,
             this.currentFrame * (this.img.width / this.frameMax),
@@ -35,8 +39,10 @@ class Sprite {
             this.position.y - 25,
             (this.img.width / this.frameMax) * this.scale,
             this.img.height * this.scale)
+            if (this.currentFrame > 3 && this.currentFrame < 12) {
         c.fillStyle = "black"
         c.fillRect(this.collider.position.x, this.collider.position.y, this.collider.width, this.collider.height)
+    }
     }
     //handle specific instance updating
     update(player, onlyOnce, storedFrames = 0){
@@ -48,7 +54,7 @@ class Sprite {
                 this.currentFrame++
                 storedFrames++
                 // console.log('frames ', this.currentFrame);
-                console.log('stored ', storedFrames);
+                // console.log('stored ', storedFrames);
             } else {
                 this.currentFrame = 0
                 storedFrames = 0 

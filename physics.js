@@ -3,6 +3,11 @@ function applyVelocity(player) {
     player.position.y = Math.floor(player.position.y) + Math.floor(player.velocity.y);
 }
 
+function applyForce(player) {
+    player.position.x = Math.floor(player.position.x) + Math.floor(player.force.x)
+    player.position.y = Math.floor(player.position.x) + Math.floor(player.force.y)
+}
+
 function applyGravity(player){
     if (player.velocity.y <= 15) {
         player.velocity.y += gravity;

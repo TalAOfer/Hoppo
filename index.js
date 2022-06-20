@@ -30,7 +30,6 @@ function animate(){
         // currentPlayers.forEach(player => {
         // console.log(currentPlayers);
 
-
         currentScene.players = currentPlayers
         handleCamera(currentPlayers[mySocketId])
         renderGame(currentScene)
@@ -42,13 +41,14 @@ function animate(){
             currentSprite: currentPlayers[mySocketId].currentSprite,
             isAttacking : currentPlayers[mySocketId].isAttacking
         })
+        
         // })
  
     }
     ,1000/fps)
 }
 
-animate();
+
 
 const menu2 = document.getElementById('main-menu')
 function startGame(){
@@ -58,6 +58,7 @@ function startGame(){
     playAudioOnce('landSfx')
     container.prepend(canvas)
     createPlayer()
+    animate();
 }
 
 function endGame(){
