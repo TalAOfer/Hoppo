@@ -23,10 +23,10 @@ class Sprite {
     }
     //render the img and animate it 
     draw(player) {
-        this.collider.position.x = getColliderDirection(player)
-        this.collider.position.y = player.position.y
-        this.collider.width = this.width / this.frameMax + 10
-        this.collider.height = this.height
+        this.collider.position.x = (player.currentSprite === 'right' ? player.position.x + 70 : player.position.x - 40)
+        this.collider.position.y = player.position.y + 27
+        this.collider.width = 27
+        this.collider.height = 27
         // console.log('x:', this.collider.position.x)
         // console.log('y:', this.collider.position.y)
         c.drawImage(
@@ -40,9 +40,12 @@ class Sprite {
             (this.img.width / this.frameMax) * this.scale,
             this.img.height * this.scale)
             if (this.currentFrame > 3 && this.currentFrame < 12) {
-        c.fillStyle = "black"
-        c.fillRect(this.collider.position.x, this.collider.position.y, this.collider.width, this.collider.height)
-    }
+                this.collider.isActive = true
+                c.fillStyle = "black"
+                c.fillRect(this.collider.position.x, this.collider.position.y, this.collider.width, this.collider.height)
+            } else {
+                this.collider.isActive = false
+            }
     }
     //handle specific instance updating
     update(player, onlyOnce, storedFrames = 0){
@@ -115,14 +118,14 @@ class Character {
         this.sprites.idle.left.src = './img/Background/kangorooleft.png'
         this.currentSprite = 'right'
 
-        this.colliderBox = {
+        this.collider = {
             position: this.position,
             width: 32,
             height: this.height
         },
 
             this.chargeBar = {
-                position: this.colliderBox.position,
+                position: this.collider.position,
                 width: 53,
                 height: 10,
                 tick: {
@@ -154,7 +157,7 @@ class Character {
 
         /*
         c.fillStyle = 'red'
-        c.fillRect(getColliderDirection() , this.colliderBox.position.y , this.colliderBox.width ,this.colliderBox.height )
+        c.fillRect(getColliderDirection() , this.collider.position.y , this.collider.width ,this.collider.height )
         */
 
         if (keyPressed[87] && !this.isJumping) {
@@ -194,6 +197,7 @@ class Character {
         applyGravity(this)
         handleJumpInput(this)
         checkPlatformCollision(this)
+        checkPunched(this)
     }
 }
 class Level {
@@ -242,7 +246,7 @@ class Scene {
 
             /*
             c.fillStyle = 'red'
-            c.fillRect(getColliderDirection() , this.colliderBox.position.y , this.colliderBox.width ,this.colliderBox.height )
+            c.fillRect(getColliderDirection() , this.collider.position.y , this.collider.width ,this.collider.height )
             */
 
             if (keyPressed[87] && !player.isJumping) {
@@ -363,7 +367,7 @@ function renderGame(scene) {
         }
 
         // c.fillStyle = 'red'
-        // c.fillRect(getColliderDirection() , player.colliderBox.position.y , player.colliderBox.width ,player.colliderBox.height )
+        // c.fillRect(getColliderDirection() , player.collider.position.y , player.collider.width ,player.collider.height )
 
 
         if (keyPressed[87] && !player.isJumping) {

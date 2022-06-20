@@ -8,7 +8,7 @@ function applyForce(player) {
     player.position.y = Math.floor(player.position.x) + Math.floor(player.force.y)
 }
 
-function applyGravity(player){
+function applyGravity(player) {
     if (player.velocity.y <= 15) {
         player.velocity.y += gravity;
     }
@@ -17,15 +17,15 @@ function applyGravity(player){
 
 function getColliderDirection(player) {
     if (player.currentSprite === 'right') {
-        return (player.colliderBox.position.x + player.width - 32)
+        return (player.collider.position.x + player.width - 32)
     } else if (player.currentSprite === 'left') {
-        return (player.colliderBox.position.x)
+        return (player.collider.position.x)
     }
 }
 
 function checkBorderBounce(player) {
     /*check if player touch border side and apply*/
-    if((player.position.x + player.width >= canvas.width - 1 || player.position.x <= canvas.width - canvas.width + 1)
+    if ((player.position.x + player.width >= canvas.width - 1 || player.position.x <= canvas.width - canvas.width + 1)
         && !player.isOnPlatform) {
         playAudioOnce('wallSfx')
         player.velocity.x *= -1
@@ -49,16 +49,16 @@ function checkBorderBounce(player) {
 }
 
 function checkPlatformCollision(player) {
-    const playerBottom = player.colliderBox.position.y + player.colliderBox.height
+    const playerBottom = player.collider.position.y + player.collider.height
     currentScene.platforms.forEach(platform => {
         const platformTop = platform.collider.position.y
         if (platform.collider.isActive) {
             if (playerBottom <= platformTop
                 && playerBottom + player.velocity.y >= platformTop
-                && getColliderDirection(player) + player.colliderBox.width >= platform.collider.position.x - 1
+                && getColliderDirection(player) + player.collider.width >= platform.collider.position.x - 1
                 && getColliderDirection(player) <= platform.collider.position.x + platform.collider.width - 1) {
-                   _handlePlatformCollision(player)
- 
+                _handlePlatformCollision(player)
+
             }
         }
     })
@@ -75,18 +75,18 @@ function _handlePlatformCollision(player) {
     player.velocity.x = 0;
 }
 
-function checkWallHeadbutt(player,platform){
-    if(player.position.y <= platform.position.y + platform.height
-        && player.colliderBox.position.y + player.colliderBox.height + player.velocity.y >= platform.collider.position.y
-        && getColliderDirection(player) + player.colliderBox.width >= platform.collider.position.x
+function checkWallHeadbutt(player, platform) {
+    if (player.position.y <= platform.position.y + platform.height
+        && player.collider.position.y + player.collider.height + player.velocity.y >= platform.collider.position.y
+        && getColliderDirection(player) + player.collider.width >= platform.collider.position.x
         && getColliderDirection(player) <= platform.collider.position.x + platform.collider.width
-        && !player.isOnPlatform){
-            _handleWallHeadbutt(player)
-        }
+        && !player.isOnPlatform) {
+        _handleWallHeadbutt(player)
+    }
 }
 
-function _handleWallHeadbutt(player){
-    if(player.isShovedY === false && player.isShovedX === true){
+function _handleWallHeadbutt(player) {
+    if (player.isShovedY === false && player.isShovedX === true) {
         player.velocity.y *= -1
         playAudioOnce('wallSfx')
         player.isShovedY = true
@@ -94,21 +94,21 @@ function _handleWallHeadbutt(player){
     }
 }
 
-function checkWallCollide(player,platform){
-    if(!(player.position.x + player.width + player.velocity.x <= platform.collider.position.x + 1
-        || player.position.x + player.velocity.x >= platform.collider.position.x + platform.collider.width)){
-            if(player.position.y <= platform.position.y + platform.height
-                && player.position.y + player.height >= platform.position.y){
-                    _handleWallCollide(player);
-            }
+function checkWallCollide(player, platform) {
+    if (!(player.position.x + player.width + player.velocity.x <= platform.collider.position.x + 1
+        || player.position.x + player.velocity.x >= platform.collider.position.x + platform.collider.width)) {
+        if (player.position.y <= platform.position.y + platform.height
+            && player.position.y + player.height >= platform.position.y) {
+            _handleWallCollide(player);
+        }
     }
 }
 
-function _handleWallCollide(player){
-    if(player.isShovedX === false && !player.isOnPlatform){
+function _handleWallCollide(player) {
+    if (player.isShovedX === false && !player.isOnPlatform) {
         playAudioOnce('wallSfx')
         player.velocity.x *= -1
-        switch(player.currentSprite){
+        switch (player.currentSprite) {
             case 'right':
                 player.currentSprite = 'left'
                 break
@@ -118,5 +118,29 @@ function _handleWallCollide(player){
         }
         player.isShovedX = true
         setTimeout(() => player.isShovedX = false, 100)
+    }
+}
+
+function checkPunched(player) {
+    for (let id in currentPlayers) {
+        const punchCollider = currentPlayers[id].punch
+        // console.log(player);
+        if (currentPlayers[id] !== mySocketId){
+            if (punchCollider.right.collider.isActive) {
+                if(punchCollider.right.collider.position.x + punchCollider.right.collider.width > player.collider.position.x
+                    && punchCollider.right.collider.position.x + punchCollider.right.collider.width < player.collider.position.x + player.collider.width
+                    && punchCollider.right.collider.position.y > player.collider.position.y
+                    && punchCollider.right.collider.position.y < player.collider.position.y + player.collider.height) {
+                    console.log('punched from my left')
+                }
+            } else if(punchCollider.left.collider.isActive) {
+                if (punchCollider.left.collider.position.x < player.collider.position.x + player.collider.width - 10 
+                    && punchCollider.left.collider.position.x > player.collider.position.x
+                    && punchCollider.left.collider.position.y > player.collider.position.y
+                    && punchCollider.left.collider.position.y < player.collider.position.y + player.collider.height) {
+                    console.log('punched from my right')
+                }
+            }
+        }
     }
 }
