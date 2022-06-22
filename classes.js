@@ -67,7 +67,7 @@ class Sprite {
     } 
 }
 class Character {
-    constructor({ position, velocity, width, height, serverAnimalType = 'goat', scale = 1, frameMax = 1 }) {
+    constructor({ position, velocity, width, height, animalType, scale = 1, frameMax = 1 }) {
         this.img = new Image(width, height)
         this.position = position
         this.velocity = velocity
@@ -78,7 +78,8 @@ class Character {
         this.currentFrame = 0
         this.frameMax = frameMax
         this.scale = scale
-        this.animalType = serverAnimalType === 'goat' ? getRandomAnimalType() : serverAnimalType
+        this.animalType = animalType
+        // this.animalType = serverAnimalType === 'goat' ? getRandomAnimalType() : serverAnimalType
 
         this.sprites = {
             idle: {

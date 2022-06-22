@@ -1,6 +1,6 @@
 const players = {}
 
-function createPlayer(socketId , _serverAnimalType = 'goat'){
+function createPlayer(socketId , animalType){
     const player = new Character({
         position: {
         x: Math.floor(getRandomInt(100,450)),
@@ -15,7 +15,7 @@ function createPlayer(socketId , _serverAnimalType = 'goat'){
         },
         width: 54,
         height: 64,
-        serverAnimalType : _serverAnimalType
+        animalType: animalType
     })
     players[socketId] = player
     socket.emit('newPlayer', {
@@ -28,22 +28,12 @@ function createPlayer(socketId , _serverAnimalType = 'goat'){
     return player
 }
 
-function getRandomAnimalType () {
-    const animals = ['bat','gorilla','goat','gecko']
-    const random = Math.floor(getRandomInt(0,4))
-    console.log(animals[random]);
-    for(let id in currentPlayers){
-        console.log(currentPlayers[id]);
-        if(id === mySocketId){
-            return (animals[random])
-        }
-        if(animals[random] === currentPlayers[id].animalType){
-            console.log('happend ');
-            getRandomAnimalType()
-        }
-    }
-    return (animals[random])
-} 
+// function getRandomAnimalType () {
+//     const animals = ['bat','gorilla','goat','gecko']
+//     const random = Math.floor(getRandomInt(0,4))
+//     const randomAnimal = animals[random]
+//     return randomAnimal
+// } 
 
 // function getPlayers(){
 //     return players

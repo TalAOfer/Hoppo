@@ -52,13 +52,13 @@ function animate(){
 
 
 const menu2 = document.getElementById('main-menu')
-function startGame(){
+function startGame(chosenAnimalType){
     const menu = document.getElementById('main-menu')
     menu.remove()
     const container = document.getElementById('canvas-container')
     playAudioOnce('landSfx')
     container.prepend(canvas)
-    player = createPlayer(mySocketId)
+    player = createPlayer(mySocketId, chosenAnimalType)
     animate();
 }
 

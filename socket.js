@@ -4,7 +4,7 @@ const currentPlayers = {}
 
 socket.on("connect", () => {
     mySocketId = socket.id
-    console.log(mySocketId);
+    // console.log(mySocketId);
 })
 
 
@@ -17,7 +17,7 @@ socket.on('serverToClient', serverPlayers => {
     }
     for(let id in serverPlayers){
         if(currentPlayers[id] === undefined && id !== mySocketId){
-            console.log(serverPlayers[id]);
+            // console.log(serverPlayers[id]);
             // currentPlayers[id].animalType = serverPlayers[id].animalType
             currentPlayers[id] = createPlayer(id, serverPlayers[id].animalType)
         }
