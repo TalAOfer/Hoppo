@@ -264,6 +264,144 @@ const level3 = new Level({
     })]
 })
 
+
+
+const beach = new Level({
+    //Instance of background
+    background : new Sprite({
+        position: {
+            x: 0,
+            y: -720
+        },
+        width: 480,
+        height: 1440,
+        imgSrc: './img/Level-Assets/Background/level-beach-bg.png',
+        borderY: 1,
+        borderWidth: 1,
+        isWall: false,
+        isActive: false })
+    //Instances of platforms with colliders in mid
+    ,platforms : [new Sprite({
+        position: {
+            x: 0,
+            y: 690
+        },
+        width: 480,
+        height: 47,
+        imgSrc: './img/Level-Assets/Platforms/Beach/beach-ground.png',
+        borderY: 1,
+        borderWidth: 1
+    }), new Sprite({
+        position: {
+            x: 300,
+            y: 400
+        },
+        width: 112,
+        height: 48,
+        imgSrc: './img/Level-Assets/Platforms/Beach/beach-wideblock.png',
+        borderY: 1,
+        borderWidth: 1,
+        isWall: true 
+    }), new Sprite({
+        position: {
+            x: 90,
+            y: 600
+        },
+        width: 48,
+        height: 5,
+        imgSrc: './img/Level-Assets/Platforms/Beach/beach-platform.png',
+        borderY: 1,
+        borderWidth: 1
+    }), new Sprite({
+        position: {
+            x: 0,
+            y: 210
+        },
+        width: 192,
+        height: 48,
+        imgSrc: './img/Level-Assets/Platforms/Beach/beach-sideblock.png',
+        borderY: 1,
+        borderWidth: 1,
+        isWall: true 
+    }),  new Sprite({
+        position: {
+            x: 0,
+            y: 530 - 720
+        },
+        width: 192,
+        height: 48,
+        imgSrc: './img/Level-Assets/Platforms/Beach/beach-sideblock.png',
+        borderY: 1,
+        borderWidth: 1,
+        isWall: true 
+    }),new Sprite({
+        position: {
+            x: 200,
+            y: 60
+        },
+        width: 48,
+        height: 48,
+        imgSrc: './img/Level-Assets/Platforms/Beach/beach-smallblock.png',
+        borderY: 1,
+        borderWidth: 1,
+        isWall: true 
+    }),new Sprite({
+        position: {
+            x: 360,
+            y: 10
+        },
+        width: 16,
+        height: 16,
+        imgSrc: './img/Level-Assets/Platforms/Beach/beach-tinyblock.png',
+        borderY: 1,
+        borderWidth: 1,
+        isWall: true 
+    }), new Sprite({
+        position: {
+            x: 185,
+            y: 100 - 720
+        },
+        width: 48,
+        height: 48,
+        imgSrc: './img/Level-Assets/Platforms/Beach/beach-smallblock.png',
+        borderY: 1,
+        borderWidth: 1,
+        isWall: true 
+    }), new Sprite({
+        position: {
+            x: 290,
+            y: 330 - 720
+        },
+        width: 48,
+        height: 48,
+        imgSrc: './img/Level-Assets/Platforms/Beach/beach-smallblock.png',
+        borderY: 1,
+        borderWidth: 1,
+        isWall: true 
+    }), new Sprite({
+        position: {
+            x: 0,
+            y: 220 - 720
+        },
+        width: 112,
+        height: 48,
+        imgSrc: './img/Level-Assets/Platforms/Beach/beach-wideblock.png',
+        borderY: 1,
+        borderWidth: 1,
+        isWall: true 
+    }),new Sprite({
+        position: {
+            x: 280,
+            y: -30 - 720
+        },
+        width: 16,
+        height: 112,
+        imgSrc: './img/Level-Assets/Platforms/Beach/beach-wall.png',
+        borderY : 1,
+        borderWidth: 1,
+        isWall: true })]
+})
+
 /*
 const backgroundScene4 = new Sprite({
     position: {

@@ -16,9 +16,10 @@ const jumpMaxGauge = 2000;
 const scene1 = new Scene(level1,currentPlayers)
 const scene2 = new Scene(level2,currentPlayers)
 const scene3 = new Scene(level3,currentPlayers);
+const beachScene = new Scene(beach,currentPlayers);
 let player
 //defaulting current scene to scene 1
-let currentScene = scene1;
+let currentScene = beachScene;
 
 const fps = 90
 //Handling the global updating , gets called every frame
@@ -58,7 +59,7 @@ function startGame(chosenAnimalType){
     const container = document.getElementById('canvas-container')
     playAudioOnce('landSfx')
     container.prepend(canvas)
-    player = createPlayer(mySocketId, chosenAnimalType)
+    player = createPlayer(chosenAnimalType)
     animate();
 }
 

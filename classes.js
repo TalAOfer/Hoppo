@@ -39,7 +39,7 @@ class Sprite {
             this.position.y - 25,
             (this.img.width / this.frameMax) * this.scale,
             this.img.height * this.scale)
-            if (this.currentFrame > 3 && this.currentFrame < 12) {
+            if (this.currentFrame > 3 && this.currentFrame < 8) {
                 this.collider.isActive = true
                 // c.fillStyle = "black"
                 // c.fillRect(this.collider.position.x, this.collider.position.y, this.collider.width, this.collider.height)

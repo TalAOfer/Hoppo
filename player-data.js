@@ -1,6 +1,6 @@
 const players = {}
 
-function createPlayer(socketId , animalType){
+function createPlayer(animalType){
     const player = new Character({
         position: {
         x: Math.floor(getRandomInt(100,450)),
@@ -17,14 +17,13 @@ function createPlayer(socketId , animalType){
         height: 64,
         animalType: animalType
     })
-    players[socketId] = player
+    // players[mySocketId] = player
     socket.emit('newPlayer', {
         x: player.position.x , 
         y: player.position.y, 
         currentSprite: player.currentSprite,
         animalType : player.animalType,
         isAttacking : false})
-    // socket.emit('newPlayer', {x: player.position.x , y: player.position.y})
     return player
 }
 

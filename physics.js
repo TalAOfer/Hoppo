@@ -87,27 +87,37 @@ function checkWallHeadbutt(player, platform) {
 
 function _handleWallHeadbutt(player) {
     if (player.isShovedY === false && player.isShovedX === true) {
-        player.velocity.y *= -1
+        player.velocity.y *= -0.8
+        switch (player.currentSprite) {
+            case 'right':
+                player.currentSprite = 'left'
+                break
+            case 'left':
+                player.currentSprite = 'right'
+                break
+        }
         playAudioOnce('wallSfx')
         player.isShovedY = true
-        setTimeout(() => player.isShovedY = false, 100)
+        setTimeout(() => player.isShovedY = false, 400)
     }
 }
 
 function checkWallCollide(player, platform) {
-    if (!(player.position.x + player.width + player.velocity.x <= platform.collider.position.x + 1
-        || player.position.x + player.velocity.x >= platform.collider.position.x + platform.collider.width)) {
-        if (player.position.y <= platform.position.y + platform.height
-            && player.position.y + player.height >= platform.position.y) {
+    if (!(player.position.x + player.width + player.velocity.x < platform.collider.position.x -1
+        || player.position.x + player.velocity.x > platform.collider.position.x + platform.collider.width + 1)) {
+        if (player.position.y < (platform.position.y + platform.height) - 15
+            && player.position.y + player.height > platform.position.y) {
             _handleWallCollide(player);
         }
     }
 }
 
 function _handleWallCollide(player) {
+    if(player.isShovedY) return
     if (player.isShovedX === false && !player.isOnPlatform) {
         playAudioOnce('wallSfx')
         player.velocity.x *= -1
+        console.log('miki');
         switch (player.currentSprite) {
             case 'right':
                 player.currentSprite = 'left'
@@ -117,7 +127,7 @@ function _handleWallCollide(player) {
                 break
         }
         player.isShovedX = true
-        setTimeout(() => player.isShovedX = false, 100)
+        setTimeout(() => player.isShovedX = false, 400)
     }
 }
 

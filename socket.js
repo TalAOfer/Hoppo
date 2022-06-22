@@ -12,23 +12,25 @@ socket.on('serverToClient', serverPlayers => {
     // console.log(serverPlayers);
     // console.log(serverPlayers);
     playersFound = {}
-    if(currentPlayers[mySocketId] === undefined){
+    if(currentPlayers[mySocketId] === undefined && player){
         currentPlayers[mySocketId] = player;
     }
     for(let id in serverPlayers){
         if(currentPlayers[id] === undefined && id !== mySocketId){
             // console.log(serverPlayers[id]);
             // currentPlayers[id].animalType = serverPlayers[id].animalType
-            currentPlayers[id] = createPlayer(id, serverPlayers[id].animalType)
+            currentPlayers[id] = createPlayer(serverPlayers[id].animalType)
         }
-        playersFound[id] = true
-        currentPlayers[id].position.x = serverPlayers[id].x
-        currentPlayers[id].position.y = serverPlayers[id].y
-        currentPlayers[id].currentSprite = serverPlayers[id].currentSprite
-        currentPlayers[id].isAttacking = serverPlayers[id].isAttacking
-        currentPlayers[id].animalType = serverPlayers[id].animalType
-        currentPlayers[id].sprites.idle.right.src = `./img/Animal-Assets/${serverPlayers[id].animalType}-right.png`
-        currentPlayers[id].sprites.idle.left.src = `./img/Animal-Assets/${serverPlayers[id].animalType}-left.png`
+        if(player){
+            playersFound[id] = true
+            currentPlayers[id].position.x = serverPlayers[id].x
+            currentPlayers[id].position.y = serverPlayers[id].y
+            currentPlayers[id].currentSprite = serverPlayers[id].currentSprite
+            currentPlayers[id].isAttacking = serverPlayers[id].isAttacking
+            currentPlayers[id].animalType = serverPlayers[id].animalType
+            currentPlayers[id].sprites.idle.right.src = `./img/Animal-Assets/${serverPlayers[id].animalType}-right.png`
+            currentPlayers[id].sprites.idle.left.src = `./img/Animal-Assets/${serverPlayers[id].animalType}-left.png`
+        }
     }
     for(let id in currentPlayers){
         if(!playersFound[id]){
