@@ -78,6 +78,7 @@ class Character {
         this.currentFrame = 0
         this.frameMax = frameMax
         this.scale = scale
+        this.animalType = getRandomAnimalType()
 
         this.sprites = {
             idle: {
@@ -114,8 +115,8 @@ class Character {
         this.lastAttack = Date.now() - 1000
         this.isAttacking = false
 
-        this.sprites.idle.right.src = './img/Background/kangorooright.png'
-        this.sprites.idle.left.src = './img/Background/kangorooleft.png'
+        this.sprites.idle.right.src = `./img/Background/${this.animalType}-right.png`
+        this.sprites.idle.left.src = `./img/Background/${this.animalType}-left.png`
         this.currentSprite = 'right'
 
         this.collider = {
@@ -155,10 +156,10 @@ class Character {
             (this.img.width / this.frameMax) * this.scale,
             this.img.height)
 
-        /*
+        
         c.fillStyle = 'red'
         c.fillRect(getColliderDirection() , this.collider.position.y , this.collider.width ,this.collider.height )
-        */
+        
 
         if (keyPressed[87] && !this.isJumping) {
 
@@ -366,8 +367,8 @@ function renderGame(scene) {
             }
         }
 
-        // c.fillStyle = 'red'
-        // c.fillRect(getColliderDirection() , player.collider.position.y , player.collider.width ,player.collider.height )
+        c.fillStyle = 'red'
+        c.fillRect(getColliderDirection(player) , player.collider.position.y , player.collider.width ,player.collider.height )
 
 
         if (keyPressed[87] && !player.isJumping) {

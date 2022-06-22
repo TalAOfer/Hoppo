@@ -149,3 +149,16 @@ function jump(player, direction){
     player.isOnPlatform = false
     player.lastJump = Date.now();
 }
+
+function getPunched(player, direction){
+    if(direction === 'left'){
+        player.currentSprite = 'left'
+        player.velocity.x = -12
+    }else if(direction === 'right'){
+        player.currentSprite = 'right'
+        player.velocity.x = 12
+    }
+    player.velocity.y = -3
+    player.isJumping = true;
+    player.isOnPlatform = false
+}

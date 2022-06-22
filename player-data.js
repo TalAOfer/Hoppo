@@ -14,7 +14,7 @@ function createPlayer(socketId){
             y: 0
         },
         width: 50,
-        height: 71
+        height: 71,
     })
     players[socketId] = player
     socket.emit('newPlayer', {
@@ -25,6 +25,12 @@ function createPlayer(socketId){
     // socket.emit('newPlayer', {x: player.position.x , y: player.position.y})
     return player
 }
+
+function getRandomAnimalType () {
+    const animals = ['kangaroo','gorilla']
+    const random = Math.floor(getRandomInt(0,2))
+    return(animals[random])
+} 
 
 function getPlayers(){
     return players
