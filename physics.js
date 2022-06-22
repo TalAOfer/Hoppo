@@ -127,7 +127,7 @@ function checkPunched(player) {
         if (currentPlayers[id] !== mySocketId){
             if (punchCollider.right.collider.isActive) {
                 if(punchCollider.right.collider.position.x + punchCollider.right.collider.width > player.collider.position.x
-                    && punchCollider.right.collider.position.x + punchCollider.right.collider.width < player.collider.position.x + player.collider.width
+                    && punchCollider.right.collider.position.x + punchCollider.right.collider.width < player.collider.position.x + player.width
                     && punchCollider.right.collider.position.y > player.collider.position.y
                     && punchCollider.right.collider.position.y < player.collider.position.y + player.collider.height) {
                     console.log('punched from my left')

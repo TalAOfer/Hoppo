@@ -23,7 +23,7 @@ class Sprite {
     }
     //render the img and animate it 
     draw(player) {
-        this.collider.position.x = (player.currentSprite === 'right' ? player.position.x + 70 : player.position.x - 40)
+        this.collider.position.x = (player.currentSprite === 'right' ? (player.position.x + 65) : (player.position.x - 30))
         this.collider.position.y = player.position.y + 27
         this.collider.width = 27
         this.collider.height = 27
@@ -67,7 +67,7 @@ class Sprite {
     } 
 }
 class Character {
-    constructor({ position, velocity, width, height, scale = 1, frameMax = 1 }) {
+    constructor({ position, velocity, width, height, serverAnimalType = null, scale = 1, frameMax = 1 }) {
         this.img = new Image(width, height)
         this.position = position
         this.velocity = velocity
@@ -78,7 +78,7 @@ class Character {
         this.currentFrame = 0
         this.frameMax = frameMax
         this.scale = scale
-        this.animalType = getRandomAnimalType()
+        this.animalType = serverAnimalType === null ? getRandomAnimalType() : serverAnimalType
 
         this.sprites = {
             idle: {
@@ -115,8 +115,8 @@ class Character {
         this.lastAttack = Date.now() - 1000
         this.isAttacking = false
 
-        this.sprites.idle.right.src = `./img/Background/${this.animalType}-right.png`
-        this.sprites.idle.left.src = `./img/Background/${this.animalType}-left.png`
+        this.sprites.idle.right.src = `./img/Animal-Assets/${this.animalType}-right.png`
+        this.sprites.idle.left.src = `./img/Animal-Assets/${this.animalType}-left.png`
         this.currentSprite = 'right'
 
         this.collider = {
@@ -367,8 +367,8 @@ function renderGame(scene) {
             }
         }
 
-        c.fillStyle = 'red'
-        c.fillRect(getColliderDirection(player) , player.collider.position.y , player.collider.width ,player.collider.height )
+        // c.fillStyle = 'red'
+        // c.fillRect(getColliderDirection(player) , player.collider.position.y , player.collider.width ,player.collider.height )
 
 
         if (keyPressed[87] && !player.isJumping) {

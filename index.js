@@ -16,7 +16,7 @@ const jumpMaxGauge = 2000;
 const scene1 = new Scene(level1,currentPlayers)
 const scene2 = new Scene(level2,currentPlayers)
 const scene3 = new Scene(level3,currentPlayers);
-
+let player
 //defaulting current scene to scene 1
 let currentScene = scene1;
 
@@ -39,6 +39,7 @@ function animate(){
             x: currentPlayers[mySocketId].position.x, 
             y: currentPlayers[mySocketId].position.y, 
             currentSprite: currentPlayers[mySocketId].currentSprite,
+            animalType : currentPlayers[mySocketId].animalType,
             isAttacking : currentPlayers[mySocketId].isAttacking
         })
         
@@ -57,7 +58,7 @@ function startGame(){
     const container = document.getElementById('canvas-container')
     playAudioOnce('landSfx')
     container.prepend(canvas)
-    createPlayer()
+    player = createPlayer(mySocketId)
     animate();
 }
 

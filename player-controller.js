@@ -158,7 +158,11 @@ function getPunched(player, direction){
         player.currentSprite = 'right'
         player.velocity.x = 12
     }
-    player.velocity.y = -3
+    if(!player.isOnPlatform){
+        player.velocity.y = -5
+    } else {
+        player.velocity.y = -7
+    }
     player.isJumping = true;
     player.isOnPlatform = false
 }
