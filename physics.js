@@ -126,17 +126,22 @@ function checkPunched(player) {
         const punchCollider = currentPlayers[id].punch
         if (currentPlayers[id] !== mySocketId){
             if (punchCollider.right.collider.isActive) {
-                if(punchCollider.right.collider.position.x + punchCollider.right.collider.width > player.collider.position.x
-                    && punchCollider.right.collider.position.x + punchCollider.right.collider.width < player.collider.position.x + player.width
-                    && punchCollider.right.collider.position.y > player.collider.position.y
+                if((punchCollider.right.collider.position.x + punchCollider.right.collider.width > player.collider.position.x
+                    && punchCollider.right.collider.position.x + punchCollider.right.collider.width < player.collider.position.x + player.width)
+                    || 
+                    (punchCollider.right.collider.position.x < player.collider.position.x + player.collider.width
+                    && punchCollider.right.collider.position.x > player.collider.position.x)
+                    && punchCollider.right.collider.position.y > player.collider.position.y - 10
                     && punchCollider.right.collider.position.y < player.collider.position.y + player.collider.height) {
                     console.log('punched from my left')
                     getPunched(player, 'right')
                 }
             } else if(punchCollider.left.collider.isActive) {
-                if (punchCollider.left.collider.position.x < player.collider.position.x + player.collider.width
-                    && punchCollider.left.collider.position.x > player.collider.position.x
-                    && punchCollider.left.collider.position.y > player.collider.position.y
+                if ((punchCollider.left.collider.position.x < player.collider.position.x + player.collider.width
+                    && punchCollider.left.collider.position.x > player.collider.position.x)
+                    || (punchCollider.left.collider.position.x + punchCollider.left.collider.width > player.collider.position.x
+                    && punchCollider.left.collider.position.x + punchCollider.left.collider.width < player.collider.position.x + player.width)
+                    && punchCollider.left.collider.position.y > player.collider.position.y - 10
                     && punchCollider.left.collider.position.y < player.collider.position.y + player.collider.height) {
                     console.log('punched from my right')
                     getPunched(player, 'left')

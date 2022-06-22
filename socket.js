@@ -1,6 +1,6 @@
 const socket = io("http://localhost:3001");
 let mySocketId
-let currentPlayers = {}
+const currentPlayers = {}
 
 socket.on("connect", () => {
     mySocketId = socket.id
@@ -27,8 +27,8 @@ socket.on('serverToClient', serverPlayers => {
         currentPlayers[id].currentSprite = serverPlayers[id].currentSprite
         currentPlayers[id].isAttacking = serverPlayers[id].isAttacking
         currentPlayers[id].animalType = serverPlayers[id].animalType
-       currentPlayers[id].sprites.idle.right.src = `./img/Animal-Assets/${currentPlayers[id].animalType}-right.png`
-       currentPlayers[id].sprites.idle.left.src = `./img/Animal-Assets/${currentPlayers[id].animalType}-left.png`
+        currentPlayers[id].sprites.idle.right.src = `./img/Animal-Assets/${serverPlayers[id].animalType}-right.png`
+        currentPlayers[id].sprites.idle.left.src = `./img/Animal-Assets/${serverPlayers[id].animalType}-left.png`
     }
     for(let id in currentPlayers){
         if(!playersFound[id]){
@@ -36,3 +36,4 @@ socket.on('serverToClient', serverPlayers => {
         }
     }
 })
+

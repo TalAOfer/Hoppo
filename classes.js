@@ -23,7 +23,7 @@ class Sprite {
     }
     //render the img and animate it 
     draw(player) {
-        this.collider.position.x = (player.currentSprite === 'right' ? (player.position.x + 65) : (player.position.x - 30))
+        this.collider.position.x = (player.currentSprite === 'right' ? (player.position.x + 70) : (player.position.x - 37))
         this.collider.position.y = player.position.y + 27
         this.collider.width = 27
         this.collider.height = 27
@@ -41,15 +41,15 @@ class Sprite {
             this.img.height * this.scale)
             if (this.currentFrame > 3 && this.currentFrame < 12) {
                 this.collider.isActive = true
-                c.fillStyle = "black"
-                c.fillRect(this.collider.position.x, this.collider.position.y, this.collider.width, this.collider.height)
+                // c.fillStyle = "black"
+                // c.fillRect(this.collider.position.x, this.collider.position.y, this.collider.width, this.collider.height)
             } else {
                 this.collider.isActive = false
             }
     }
     //handle specific instance updating
     update(player, onlyOnce, storedFrames = 0){
-        if(onlyOnce) return this.update(player, onlyOnce, storedFrames)
+        // if(onlyOnce) return this.update(player, onlyOnce, storedFrames)
         this.draw(player);
         this.elapsedFrames++
         if (this.elapsedFrames % this.holdFrames === 0) {
@@ -67,7 +67,7 @@ class Sprite {
     } 
 }
 class Character {
-    constructor({ position, velocity, width, height, serverAnimalType = null, scale = 1, frameMax = 1 }) {
+    constructor({ position, velocity, width, height, serverAnimalType = 'goat', scale = 1, frameMax = 1 }) {
         this.img = new Image(width, height)
         this.position = position
         this.velocity = velocity
@@ -78,7 +78,7 @@ class Character {
         this.currentFrame = 0
         this.frameMax = frameMax
         this.scale = scale
-        this.animalType = serverAnimalType === null ? getRandomAnimalType() : serverAnimalType
+        this.animalType = serverAnimalType === 'goat' ? getRandomAnimalType() : serverAnimalType
 
         this.sprites = {
             idle: {

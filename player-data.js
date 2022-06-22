@@ -1,6 +1,6 @@
 const players = {}
 
-function createPlayer(socketId , _serverAnimalType = null){
+function createPlayer(socketId , _serverAnimalType = 'goat'){
     const player = new Character({
         position: {
         x: Math.floor(getRandomInt(100,450)),
@@ -31,7 +31,18 @@ function createPlayer(socketId , _serverAnimalType = null){
 function getRandomAnimalType () {
     const animals = ['bat','gorilla','goat','gecko']
     const random = Math.floor(getRandomInt(0,4))
-    return(animals[random])
+    console.log(animals[random]);
+    for(let id in currentPlayers){
+        console.log(currentPlayers[id]);
+        if(id === mySocketId){
+            return (animals[random])
+        }
+        if(animals[random] === currentPlayers[id].animalType){
+            console.log('happend ');
+            getRandomAnimalType()
+        }
+    }
+    return (animals[random])
 } 
 
 // function getPlayers(){
