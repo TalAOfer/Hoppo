@@ -159,7 +159,7 @@ class Character {
 
         
         c.fillStyle = 'red'
-        c.fillRect(getColliderDirection() , this.collider.position.y , this.collider.width ,this.collider.height )
+        c.fillRect(getPlayerColliderX() , this.collider.position.y , this.collider.width ,this.collider.height )
         
 
         if (keyPressed[87] && !this.isJumping) {
@@ -248,7 +248,7 @@ class Scene {
 
             /*
             c.fillStyle = 'red'
-            c.fillRect(getColliderDirection() , this.collider.position.y , this.collider.width ,this.collider.height )
+            c.fillRect(getPlayerColliderX() , this.collider.position.y , this.collider.width ,this.collider.height )
             */
 
             if (keyPressed[87] && !player.isJumping) {
@@ -369,19 +369,19 @@ function renderGame(scene) {
         }
 
         // c.fillStyle = 'red'
-        // c.fillRect(getColliderDirection(player) , player.collider.position.y , player.collider.width ,player.collider.height )
+        // c.fillRect(getPlayerColliderX(player) , player.collider.position.y , player.collider.width ,player.collider.height )
 
 
         if (keyPressed[87] && !player.isJumping) {
 
             c.fillStyle = '#433732'
-            c.fillRect(player.currentSprite === player.sprites.idle.right ? player.position.x : player.position.x - 10,
+            c.fillRect(player.position.x,
                 player.chargeBar.position.y - 20,
                 player.chargeBar.width,
                 player.chargeBar.height)
 
             c.fillStyle = '#EAA141'
-            c.fillRect((player.currentSprite === player.sprites.idle.right ? player.position.x : player.position.x - 10) + 1,
+            c.fillRect(player.position.x + 1,
                 player.chargeBar.position.y - 19,
                 player.chargeBar.tick.width,
                 player.chargeBar.tick.height)

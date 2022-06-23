@@ -284,7 +284,7 @@ const beach = new Level({
     ,platforms : [new Sprite({
         position: {
             x: 0,
-            y: 690
+            y: 680
         },
         width: 480,
         height: 47,
