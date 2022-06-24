@@ -49,7 +49,7 @@ class Sprite {
     }
     //handle specific instance updating
     update(player, onlyOnce, storedFrames = 0){
-        // if(onlyOnce) return this.update(player, onlyOnce, storedFrames)
+        if(onlyOnce) return this.update(player, onlyOnce = false, storedFrames)
         this.draw(player);
         this.elapsedFrames++
         if (this.elapsedFrames % this.holdFrames === 0) {
@@ -379,17 +379,18 @@ function renderGame(scene) {
                 || player.currentSprite === 'charge-right' 
                 || player.currentSprite === 'jump-right' 
                 || player.currentSprite === 'fall-right' ) && onlyOnce === false) {
+                if(player.punch.left.currentFrame !== 0 ) onlyOnce = true
                 player.lastAttack = Date.now()
                 player.punch.right.update(player, onlyOnce)
-                onlyOnce = true
+                
             }
             else if ((player.currentSprite === 'left' 
                 || player.currentSprite === 'charge-left' 
                 || player.currentSprite === 'jump-left' 
                 || player.currentSprite === 'fall-left' ) && onlyOnce === false) {
+                if(player.punch.right.currentFrame !== 0 ) onlyOnce = true
                 player.lastAttack = Date.now()
                 player.punch.left.update(player, onlyOnce)
-                onlyOnce = true
             }
         }
 

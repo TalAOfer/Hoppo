@@ -254,7 +254,7 @@ function _handleWallCollide(player) {
 function checkPunched(player) {
     for (let id in currentPlayers) {
         const punchCollider = currentPlayers[id].punch
-        if (currentPlayers[id] !== mySocketId) {
+        if (id !== mySocketId) {
             if (punchCollider.right.collider.isActive) {
                 if ((punchCollider.right.collider.position.x + punchCollider.right.collider.width > player.collider.position.x
                     && punchCollider.right.collider.position.x + punchCollider.right.collider.width < player.collider.position.x + player.width)
