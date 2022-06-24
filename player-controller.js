@@ -86,6 +86,10 @@ function keyHandlerFunc(player){
         let dt = now - player.lastAttack
         // console.log(dt);
         if(dt > 1000){
+            if(lastKey !== 'space'){
+                player.punch.right.currentFrame = 0
+                player.punch.left.currentFrame = 0
+            }
             lastKey = 'space'  
             player.isAttacking = true
         }
@@ -168,10 +172,10 @@ function jump(player, direction){
 
 function getPunched(player, direction){
     if(direction === 'left'){
-        player.currentSprite = 'left'
+        player.currentSprite = 'fall-right'
         player.velocity.x = -12
     }else if(direction === 'right'){
-        player.currentSprite = 'right'
+        player.currentSprite = 'fall-left'
         player.velocity.x = 12
     }
     player.velocity.y = -7
