@@ -49,7 +49,7 @@ class Sprite {
     }
     //handle specific instance updating
     update(player, onlyOnce, storedFrames = 0){
-        // if(onlyOnce) return this.update(player, onlyOnce, storedFrames)
+        if(onlyOnce) return this.update(player, onlyOnce = false, storedFrames)
         this.draw(player);
         this.elapsedFrames++
         if (this.elapsedFrames % this.holdFrames === 0) {
@@ -83,20 +83,20 @@ class Character {
 
         this.sprites = {
             idle: {
-                right: new Image(64, 64),
-                left: new Image(64, 64)
+                right: new Image(64, 66),
+                left: new Image(64, 66)
             },
             charge: {
-                right: new Image(64, 64),
-                left: new Image(64, 64)
+                right: new Image(64, 66),
+                left: new Image(64, 66)
             },
             jump: {
-                right: new Image(64, 64),
-                left: new Image(64, 64)
+                right: new Image(64, 66),
+                left: new Image(64, 66)
             },
             fall: {
-                right: new Image(64, 64),
-                left: new Image(64, 64)
+                right: new Image(64, 66),
+                left: new Image(64, 66)
             },
         }
         this.punch = {
@@ -151,7 +151,7 @@ class Character {
                 height: 10,
                 tick: {
                     width: 3.7,
-                    height: 8
+                    height: 6
                 }
             },
 
@@ -375,15 +375,22 @@ function renderGame(scene) {
 
         if (player.isAttacking) {
             let onlyOnce = false
-            if (player.currentSprite === 'right' && onlyOnce === false) {
+            if ((player.currentSprite === 'right' 
+                || player.currentSprite === 'charge-right' 
+                || player.currentSprite === 'jump-right' 
+                || player.currentSprite === 'fall-right' ) && onlyOnce === false) {
+                if(player.punch.left.currentFrame !== 0 ) onlyOnce = true
                 player.lastAttack = Date.now()
                 player.punch.right.update(player, onlyOnce)
-                onlyOnce = true
+                
             }
-            else if (player.currentSprite === 'left' && onlyOnce === false) {
+            else if ((player.currentSprite === 'left' 
+                || player.currentSprite === 'charge-left' 
+                || player.currentSprite === 'jump-left' 
+                || player.currentSprite === 'fall-left' ) && onlyOnce === false) {
+                if(player.punch.right.currentFrame !== 0 ) onlyOnce = true
                 player.lastAttack = Date.now()
                 player.punch.left.update(player, onlyOnce)
-                onlyOnce = true
             }
         }
 
@@ -400,8 +407,8 @@ function renderGame(scene) {
                 player.chargeBar.height)
 
             c.fillStyle = '#EAA141'
-            c.fillRect(player.position.x + 1,
-                player.chargeBar.position.y - 19,
+            c.fillRect(player.position.x + 2,
+                player.chargeBar.position.y - 18,
                 player.chargeBar.tick.width,
                 player.chargeBar.tick.height)
 

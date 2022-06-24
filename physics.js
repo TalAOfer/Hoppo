@@ -1,14 +1,28 @@
 function applyVelocity(player) {
     player.position.x = Math.floor(player.position.x) + Math.floor(player.velocity.x);
     player.position.y = Math.floor(player.position.y) + Math.floor(player.velocity.y);
-    if (player.velocity.y > 1) {
-        switch (player.currentSprite) {
-            case 'jump-right':
-                player.currentSprite = 'fall-right'
-                break
-            case 'jump-left':
-                player.currentSprite = 'fall-left'
-                break
+    if (player.animalType === 'bat') {
+        if (player.velocity.y > -1) {
+            switch (player.currentSprite) {
+                case 'jump-right':
+                    player.currentSprite = 'fall-right'
+                    break
+                case 'jump-left':
+                    player.currentSprite = 'fall-left'
+                    break
+            }
+        }
+    }
+    else{
+        if (player.velocity.y > 1) {
+            switch (player.currentSprite) {
+                case 'jump-right':
+                    player.currentSprite = 'fall-right'
+                    break
+                case 'jump-left':
+                    player.currentSprite = 'fall-left'
+                    break
+            }
         }
     }
 }
@@ -252,7 +266,7 @@ function checkPunched(player) {
         const playerHeight = player.collider.height
         const playerWidth = player.width
 
-        if (currentPlayers[id] !== mySocketId) {
+        if (id !== mySocketId) {
             if (rightPunchCollider.isActive) {
                 if ((rightPunchColliderX + punchWidth > playerColliderX
                     && rightPunchColliderX + punchWidth < playerColliderX + playerWidth)

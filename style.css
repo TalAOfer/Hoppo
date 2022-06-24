@@ -8,7 +8,7 @@
 
  canvas {
     display: inline;
-    border: 5px solid #58333C
+    border: 2px solid #433732
  }
 
  #main-menu {
@@ -19,7 +19,7 @@
     height: 720; 
     width: 480;
     align-items: center;
-    border: 5px solid #58333C;
+    border: 2px solid #433732;
     margin: 0;
     padding: 0;
     display: flex;
