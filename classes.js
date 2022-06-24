@@ -83,9 +83,21 @@ class Character {
 
         this.sprites = {
             idle: {
-                right: new Image(50, 71),
-                left: new Image(50, 71)
-            }
+                right: new Image(64, 64),
+                left: new Image(64, 64)
+            },
+            charge: {
+                right: new Image(64, 64),
+                left: new Image(64, 64)
+            },
+            jump: {
+                right: new Image(64, 64),
+                left: new Image(64, 64)
+            },
+            fall: {
+                right: new Image(64, 64),
+                left: new Image(64, 64)
+            },
         }
         this.punch = {
             right: new Sprite({
@@ -116,8 +128,15 @@ class Character {
         this.lastAttack = Date.now() - 1000
         this.isAttacking = false
 
-        this.sprites.idle.right.src = `./img/Animal-Assets/${this.animalType}-right.png`
-        this.sprites.idle.left.src = `./img/Animal-Assets/${this.animalType}-left.png`
+        this.sprites.idle.right.src = `./img/Animal-Assets/${this.animalType}/${this.animalType}-right.png`
+        this.sprites.idle.left.src = `./img/Animal-Assets/${this.animalType}/${this.animalType}-left.png`
+        this.sprites.charge.right.src = `./img/Animal-Assets/${this.animalType}/${this.animalType}-charge-right.png`
+        this.sprites.charge.left.src = `./img/Animal-Assets/${this.animalType}/${this.animalType}-charge-left.png`
+        this.sprites.jump.right.src = `./img/Animal-Assets/${this.animalType}/${this.animalType}-jump-right.png`
+        this.sprites.jump.left.src = `./img/Animal-Assets/${this.animalType}/${this.animalType}-jump-left.png`
+        this.sprites.fall.right.src = `./img/Animal-Assets/${this.animalType}/${this.animalType}-fall-right.png`
+        this.sprites.fall.left.src = `./img/Animal-Assets/${this.animalType}/${this.animalType}-fall-left.png`
+
         this.currentSprite = 'right'
 
         this.collider = {
@@ -344,7 +363,7 @@ function renderGame(scene) {
     for(let id in players){
         const player = players[id]
         c.drawImage(
-            player.currentSprite === 'right' ? player.sprites.idle.right : player.sprites.idle.left,
+            getCurrentSpriteIMG(player),
             player.currentFrame * (player.img.width / player.frameMax),
             0,
             player.img.width / player.frameMax,

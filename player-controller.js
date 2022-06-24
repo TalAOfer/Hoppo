@@ -62,6 +62,14 @@ function keyHandlerFunc(player){
     if(keyPressed[87]){
         if(!player.isJumping){
             keys.w.pressed = true;
+            switch(player.currentSprite){
+                case 'right':
+                    player.currentSprite = 'charge-right'
+                    break
+                case 'left':
+                    player.currentSprite = 'charge-left'
+                    break
+            }
             if(player.jumpGauge < jumpMaxGauge && (player.isGrounded || player.isOnPlatform)){
                 player.jumpGauge += 40
             }
@@ -138,11 +146,19 @@ function handleJumpInput(player) {
 function jump(player, direction){
     playAudioOnce('jumpSfx')
     if(direction === 'left'){
-        player.currentSprite = 'left'
+        player.currentSprite = 'jump-left'
         player.velocity.x = -4 - (player.jumpGauge / 550)
     }else if(direction === 'right'){
-        player.currentSprite = 'right'
+        player.currentSprite = 'jump-right'
         player.velocity.x = 4 + (player.jumpGauge / 550)
+    }
+    switch (player.currentSprite) {
+        case 'charge-right':
+            player.currentSprite = 'jump-right'
+            break
+        case 'charge-left':
+            player.currentSprite = 'jump-left'
+            break
     }
     player.velocity.y = -3 - (player.jumpGauge / 100)
     player.isJumping = true;

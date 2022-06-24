@@ -1,6 +1,16 @@
 function applyVelocity(player) {
     player.position.x = Math.floor(player.position.x) + Math.floor(player.velocity.x);
     player.position.y = Math.floor(player.position.y) + Math.floor(player.velocity.y);
+    if(player.velocity.y > 1){
+        switch(player.currentSprite){
+            case 'jump-right':
+                player.currentSprite = 'fall-right'
+                break
+            case 'jump-left':
+                player.currentSprite = 'fall-left'
+                break
+        }
+    }
 }
 
 function applyForce(player) {
@@ -26,12 +36,20 @@ function checkBorderBounce(player) {
         playAudioOnce('wallSfx')
         player.velocity.x *= -1
         switch (player.currentSprite) {
-            case 'right':
-                player.currentSprite = 'left'
+            case 'jump-right':
+                player.currentSprite = 'jump-left'
                 console.log('wtf1')
                 break;
-            case 'left':
-                player.currentSprite = 'right'
+            case 'jump-left':
+                player.currentSprite = 'jump-right'
+                console.log('wtf2')
+                break;
+            case 'fall-right':
+                player.currentSprite = 'fall-left'
+                console.log('wtf1')
+                break;
+            case 'fall-left':
+                player.currentSprite = 'fall-right'
                 console.log('wtf2')
                 break;
         }
@@ -63,6 +81,14 @@ function checkPlatformCollision(player) {
 function _handlePlatformCollision(player) {
     if (player.isOnPlatform === false) {
         playAudioOnce('landSfx')
+        switch(player.currentSprite){
+            case 'fall-right':
+                player.currentSprite = 'right'
+                break
+            case 'fall-left':
+                player.currentSprite = 'left'
+                break
+        }
     }
     player.isOnPlatform = true;
     player.isJumping = false;
@@ -189,12 +215,22 @@ function _handleWallCollide(player) {
         player.velocity.x *= -1
         console.log('miki');
         switch (player.currentSprite) {
-            case 'right':
-                player.currentSprite = 'left'
-                break
-            case 'left':
-                player.currentSprite = 'right'
-                break
+            case 'jump-right':
+                player.currentSprite = 'jump-left'
+                console.log('wtf1')
+                break;
+            case 'jump-left':
+                player.currentSprite = 'jump-right'
+                console.log('wtf2')
+                break;
+            case 'fall-right':
+                player.currentSprite = 'fall-left'
+                console.log('wtf1')
+                break;
+            case 'fall-left':
+                player.currentSprite = 'fall-right'
+                console.log('wtf2')
+                break;
         }
         player.isShovedX = true
         setTimeout(() => player.isShovedX = false, 400)

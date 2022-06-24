@@ -13,7 +13,7 @@ function createPlayer(animalType){
             x: 0,
             y: 0
         },
-        width: 54,
+        width: 64,
         height: 64,
         animalType: animalType
     })
@@ -37,3 +37,34 @@ function createPlayer(animalType){
 // function getPlayers(){
 //     return players
 // }
+
+function getCurrentSpriteIMG(player){
+    let IMG
+    switch(player.currentSprite){
+        case 'right':
+            IMG =  player.sprites.idle.right
+            break
+        case 'left':
+            IMG =  player.sprites.idle.left
+            break
+        case 'charge-right':
+            IMG =  player.sprites.charge.right
+            break
+        case 'charge-left':
+            IMG =  player.sprites.charge.left
+            break
+        case 'jump-right':
+            IMG =  player.sprites.jump.right
+            break
+        case 'jump-left':
+            IMG =  player.sprites.jump.left
+            break
+        case 'fall-right':
+            IMG =  player.sprites.fall.right
+            break
+        case 'fall-left':
+            IMG =  player.sprites.fall.left
+            break
+    }
+    return IMG
+}

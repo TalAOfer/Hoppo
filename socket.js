@@ -28,8 +28,8 @@ socket.on('serverToClient', serverPlayers => {
             currentPlayers[id].currentSprite = serverPlayers[id].currentSprite
             currentPlayers[id].isAttacking = serverPlayers[id].isAttacking
             currentPlayers[id].animalType = serverPlayers[id].animalType
-            currentPlayers[id].sprites.idle.right.src = `./img/Animal-Assets/${serverPlayers[id].animalType}-right.png`
-            currentPlayers[id].sprites.idle.left.src = `./img/Animal-Assets/${serverPlayers[id].animalType}-left.png`
+            currentPlayers[id].sprites.idle.right.src = `./img/Animal-Assets/${serverPlayers[id].animalType}/${serverPlayers[id].animalType}-right.png`
+            currentPlayers[id].sprites.idle.left.src = `./img/Animal-Assets/${serverPlayers[id].animalType}/${serverPlayers[id].animalType}-left.png`
         }
     }
     for(let id in currentPlayers){
