@@ -29,7 +29,7 @@ function animate(){
         window.requestAnimationFrame(animate)
         //update current scene
         // currentPlayers.forEach(player => {
-        // console.log(currentPlayers);
+        // //console.log(currentPlayers);
 
         currentScene.players = currentPlayers
         handleCamera(currentPlayers[mySocketId])
@@ -73,12 +73,12 @@ function endGame(){
 
 function handleCamera(player){
     let scroll = 0
-    if(player.position.y < 360 && player.position.y > -461){
+    if(player.position.y < 358 && player.position.y > -581){
         scroll = Math.floor(player.velocity.y / 1.2)
         c.translate(0,(-scroll))
-    }else if(player.position.y > 360){
+    }else if(player.position.y > 358){
         c.setTransform(1, 0, 0, 1, 0, 0);
-    } else if(player.position.y < -461){
+    } else if(player.position.y < -581){
         c.save();
         c.restore()
     }

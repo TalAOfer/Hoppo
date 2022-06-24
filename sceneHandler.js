@@ -10,7 +10,7 @@ function sceneHandler(){
                 setTimeout(() => { switchingScene = false;
                 
                 }, 100);
-                console.log(currentScene)
+                //console.log(currentScene)
                 break
             case scene2: 
                 currentScene = scene3
@@ -19,7 +19,7 @@ function sceneHandler(){
                 setTimeout(() => { switchingScene = false;
                     
                 }, 100);
-                console.log(currentScene)
+                //console.log(currentScene)
                 break
             case scene3: 
                 currentScene = scene4
@@ -30,7 +30,7 @@ function sceneHandler(){
                 setTimeout(() => { switchingScene = false;
                     
                 }, 100);
-                console.log(currentScene)
+                //console.log(currentScene)
                 break
             case scene4: 
                 currentScene = scene5
@@ -41,7 +41,7 @@ function sceneHandler(){
                 setTimeout(() => { switchingScene = false;
                     
                 }, 100);
-                console.log(currentScene)
+                //console.log(currentScene)
                 break
             case scene5: 
                 currentScene = scene6
@@ -54,7 +54,7 @@ function sceneHandler(){
                 setTimeout(() => { switchingScene = false;
                     
                 }, 100);
-                console.log(currentScene)
+                //console.log(currentScene)
                 break
             case scene6:
                 gravity = 0.7
@@ -85,7 +85,7 @@ function sceneHandler(){
 //                     switchingScene = true;
 //                     setTimeout(() => { switchingScene = false;
 //                     }, 10);
-//                     console.log(currentScene)
+//                     //console.log(currentScene)
 //                     break
 //                 case scene5:
 //                     currentScene = scene4
@@ -96,7 +96,7 @@ function sceneHandler(){
 //                     setTimeout(() => { switchingScene = false;
                         
 //                     }, 10);
-//                     console.log(currentScene)
+//                     //console.log(currentScene)
 //                     break
 //                 case scene4: 
 //                     currentScene = scene3
@@ -108,7 +108,7 @@ function sceneHandler(){
 //                     setTimeout(() => { switchingScene = false;
                         
 //                     }, 10);
-//                     console.log(currentScene)
+//                     //console.log(currentScene)
 //                     break
 //                 case scene3: 
 //                     currentScene = scene2
@@ -117,7 +117,7 @@ function sceneHandler(){
 //                     setTimeout(() => { switchingScene = false;
                         
 //                     }, 10);
-//                     console.log(currentScene)
+//                     //console.log(currentScene)
 //                     break
 //                 case scene2: 
 //                     currentScene = scene1
@@ -127,7 +127,7 @@ function sceneHandler(){
 //                     setTimeout(() => { switchingScene = false;
                         
 //                     }, 10);
-//                     console.log(currentScene)
+//                     //console.log(currentScene)
 //                     break
 //             }
 //         }

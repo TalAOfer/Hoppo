@@ -4,20 +4,20 @@ const currentPlayers = {}
 
 socket.on("connect", () => {
     mySocketId = socket.id
-    // console.log(mySocketId);
+    // //console.log(mySocketId);
 })
 
 
 socket.on('serverToClient', serverPlayers => {
-    // console.log(serverPlayers);
-    // console.log(serverPlayers);
+    // //console.log(serverPlayers);
+    // //console.log(serverPlayers);
     playersFound = {}
     if(currentPlayers[mySocketId] === undefined && player){
         currentPlayers[mySocketId] = player;
     }
     for(let id in serverPlayers){
         if(currentPlayers[id] === undefined && id !== mySocketId){
-            // console.log(serverPlayers[id]);
+            // //console.log(serverPlayers[id]);
             // currentPlayers[id].animalType = serverPlayers[id].animalType
             currentPlayers[id] = createPlayer(serverPlayers[id].animalType)
         }

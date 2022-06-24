@@ -271,10 +271,10 @@ const beach = new Level({
     background : new Sprite({
         position: {
             x: 0,
-            y: -720
+            y: -840
         },
         width: 480,
-        height: 1440,
+        height: 1560,
         imgSrc: './img/Level-Assets/Background/level-beach-bg.png',
         borderY: 1,
         borderWidth: 1,
@@ -358,8 +358,8 @@ const beach = new Level({
         isWall: true 
     }), new Sprite({
         position: {
-            x: 185,
-            y: 100 - 720
+            x: 165,
+            y: -600
         },
         width: 48,
         height: 48,
@@ -370,7 +370,7 @@ const beach = new Level({
     }), new Sprite({
         position: {
             x: 290,
-            y: 330 - 720
+            y: 320 - 720
         },
         width: 48,
         height: 48,
@@ -380,8 +380,8 @@ const beach = new Level({
         isWall: true 
     }), new Sprite({
         position: {
-            x: 0,
-            y: 220 - 720
+            x: -30,
+            y: -500
         },
         width: 112,
         height: 48,
@@ -392,14 +392,47 @@ const beach = new Level({
     }),new Sprite({
         position: {
             x: 280,
-            y: -30 - 720
+            y: -600
         },
         width: 16,
         height: 112,
         imgSrc: './img/Level-Assets/Platforms/Beach/beach-wall.png',
         borderY : 1,
         borderWidth: 1,
-        isWall: true })]
+        isWall: true 
+    }),new Sprite({
+        position: {
+            x: 280,
+            y: -815
+        },
+        width: 16,
+        height: 112,
+        imgSrc: './img/Level-Assets/Platforms/Beach/beach-wall.png',
+        borderY : 1,
+        borderWidth: 1,
+        isWall: true 
+    }),new Sprite({
+        position: {
+            x: 20,
+            y: -562
+        },
+        width: 90,
+        height: 69,
+        imgSrc: './img/Level-Assets/Props/beach/planktower.png',
+        borderY : 1,
+        borderWidth: 1,
+        isWall: true 
+    }),,new Sprite({
+        position: {
+            x: 58,
+            y: -562 -92
+        },
+        width: 36,
+        height: 92,
+        imgSrc: './img/Level-Assets/Props/beach/flag1.png',
+        borderY : 1,
+        borderWidth: 1,
+        isActive: false })]
 })
 
 /*
