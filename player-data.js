@@ -14,7 +14,7 @@ function createPlayer(animalType){
             y: 0
         },
         width: 64,
-        height: 64,
+        height: 66,
         animalType: animalType
     })
     // players[mySocketId] = player

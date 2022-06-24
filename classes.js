@@ -83,20 +83,20 @@ class Character {
 
         this.sprites = {
             idle: {
-                right: new Image(64, 64),
-                left: new Image(64, 64)
+                right: new Image(64, 66),
+                left: new Image(64, 66)
             },
             charge: {
-                right: new Image(64, 64),
-                left: new Image(64, 64)
+                right: new Image(64, 66),
+                left: new Image(64, 66)
             },
             jump: {
-                right: new Image(64, 64),
-                left: new Image(64, 64)
+                right: new Image(64, 66),
+                left: new Image(64, 66)
             },
             fall: {
-                right: new Image(64, 64),
-                left: new Image(64, 64)
+                right: new Image(64, 66),
+                left: new Image(64, 66)
             },
         }
         this.punch = {

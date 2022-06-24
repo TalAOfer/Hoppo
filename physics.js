@@ -1,14 +1,28 @@
 function applyVelocity(player) {
     player.position.x = Math.floor(player.position.x) + Math.floor(player.velocity.x);
     player.position.y = Math.floor(player.position.y) + Math.floor(player.velocity.y);
-    if(player.velocity.y > 1){
-        switch(player.currentSprite){
-            case 'jump-right':
-                player.currentSprite = 'fall-right'
-                break
-            case 'jump-left':
-                player.currentSprite = 'fall-left'
-                break
+    if (player.animalType === 'bat') {
+        if (player.velocity.y > -1) {
+            switch (player.currentSprite) {
+                case 'jump-right':
+                    player.currentSprite = 'fall-right'
+                    break
+                case 'jump-left':
+                    player.currentSprite = 'fall-left'
+                    break
+            }
+        }
+    }
+    else{
+        if (player.velocity.y > 1) {
+            switch (player.currentSprite) {
+                case 'jump-right':
+                    player.currentSprite = 'fall-right'
+                    break
+                case 'jump-left':
+                    player.currentSprite = 'fall-left'
+                    break
+            }
         }
     }
 }
@@ -26,7 +40,7 @@ function applyGravity(player) {
 }
 
 function getPlayerColliderX(player) {
-        return (player.collider.position.x + 11)
+    return (player.collider.position.x + 11)
 }
 
 function checkBorderBounce(player) {
@@ -81,7 +95,7 @@ function checkPlatformCollision(player) {
 function _handlePlatformCollision(player) {
     if (player.isOnPlatform === false) {
         playAudioOnce('landSfx')
-        switch(player.currentSprite){
+        switch (player.currentSprite) {
             case 'fall-right':
                 player.currentSprite = 'right'
                 break
@@ -100,9 +114,9 @@ function _handlePlatformCollision(player) {
 function checkWallHeadbutt(player, platform) {
     const playerTop = player.position.y - player.velocity.y - 6
     const playerMiddle = player.position.x + player.width / 2
-    const playerBottom =  player.collider.position.y + player.collider.height 
+    const playerBottom = player.collider.position.y + player.collider.height
 
-    const platformBorderBottom =  platform.collider.position.y + platform.height + 3
+    const platformBorderBottom = platform.collider.position.y + platform.height + 3
     const platformBorderTop = platform.collider.position.y + 3
     const platformBorderLeft = platform.collider.position.x - (player.width / 2)
     const platformBorderRight = platform.collider.position.x + platform.width + (player.width / 2)
@@ -122,13 +136,13 @@ function checkWallHeadbutt(player, platform) {
     //     c.fillStyle = 'blue'
     // c.fillRect(platformBorderRight, platformBorderTop, 2, 2)
 
-    if(!player.isOnPlatform 
+    if (!player.isOnPlatform
         && player.velocity.y < 0
         && playerTop <= platformBorderBottom
         && playerTop >= platformBorderTop
         && playerMiddle >= platformBorderLeft
-        && playerMiddle <= platformBorderRight){
-            _handleWallHeadbutt(player)
+        && playerMiddle <= platformBorderRight) {
+        _handleWallHeadbutt(player)
     }
 }
 
@@ -140,7 +154,7 @@ function _handleWallHeadbutt(player) {
         player.isShovedY = true
         setTimeout(() => player.isShovedY = false, 400)
     }
-    
+
 }
 
 function checkWallCollide(player, platform) {
