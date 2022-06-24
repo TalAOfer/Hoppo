@@ -1,8 +1,8 @@
 function applyVelocity(player) {
     player.position.x = Math.floor(player.position.x) + Math.floor(player.velocity.x);
     player.position.y = Math.floor(player.position.y) + Math.floor(player.velocity.y);
-    if(player.velocity.y > 1){
-        switch(player.currentSprite){
+    if (player.velocity.y > 1) {
+        switch (player.currentSprite) {
             case 'jump-right':
                 player.currentSprite = 'fall-right'
                 break
@@ -26,7 +26,7 @@ function applyGravity(player) {
 }
 
 function getPlayerColliderX(player) {
-        return (player.collider.position.x + 11)
+    return (player.collider.position.x + 11)
 }
 
 function checkBorderBounce(player) {
@@ -81,7 +81,7 @@ function checkPlatformCollision(player) {
 function _handlePlatformCollision(player) {
     if (player.isOnPlatform === false) {
         playAudioOnce('landSfx')
-        switch(player.currentSprite){
+        switch (player.currentSprite) {
             case 'fall-right':
                 player.currentSprite = 'right'
                 break
@@ -100,9 +100,9 @@ function _handlePlatformCollision(player) {
 function checkWallHeadbutt(player, platform) {
     const playerTop = player.position.y - player.velocity.y - 6
     const playerMiddle = player.position.x + player.width / 2
-    const playerBottom =  player.collider.position.y + player.collider.height 
+    const playerBottom = player.collider.position.y + player.collider.height
 
-    const platformBorderBottom =  platform.collider.position.y + platform.height + 3
+    const platformBorderBottom = platform.collider.position.y + platform.height + 3
     const platformBorderTop = platform.collider.position.y + 3
     const platformBorderLeft = platform.collider.position.x - (player.width / 2)
     const platformBorderRight = platform.collider.position.x + platform.width + (player.width / 2)
@@ -122,13 +122,13 @@ function checkWallHeadbutt(player, platform) {
     //     c.fillStyle = 'blue'
     // c.fillRect(platformBorderRight, platformBorderTop, 2, 2)
 
-    if(!player.isOnPlatform 
+    if (!player.isOnPlatform
         && player.velocity.y < 0
         && playerTop <= platformBorderBottom
         && playerTop >= platformBorderTop
         && playerMiddle >= platformBorderLeft
-        && playerMiddle <= platformBorderRight){
-            _handleWallHeadbutt(player)
+        && playerMiddle <= platformBorderRight) {
+        _handleWallHeadbutt(player)
     }
 }
 
@@ -140,7 +140,7 @@ function _handleWallHeadbutt(player) {
         player.isShovedY = true
         setTimeout(() => player.isShovedY = false, 400)
     }
-    
+
 }
 
 function checkWallCollide(player, platform) {
@@ -239,26 +239,37 @@ function _handleWallCollide(player) {
 
 function checkPunched(player) {
     for (let id in currentPlayers) {
-        const punchCollider = currentPlayers[id].punch
+        const rightPunchCollider = currentPlayers[id].punch.right.collider
+        const leftPunchCollider = currentPlayers[id].punch.left.collider
+
+        const rightPunchColliderX = rightPunchCollider.position.x
+        const rightPunchColliderY = rightPunchCollider.position.y
+        const leftPunchColliderX = leftPunchCollider.position.x
+        const leftPunchColliderY = leftPunchCollider.position.y
+        const punchWidth = currentPlayers[id].punch.right.width
+        const playerColliderX = player.collider.position.x
+        const playerColliderY = player.collider.position.y
+        const playerHeight = player.collider.height
+        const playerWidth = player.width
+
         if (currentPlayers[id] !== mySocketId) {
-            if (punchCollider.right.collider.isActive) {
-                if ((punchCollider.right.collider.position.x + punchCollider.right.collider.width > player.collider.position.x
-                    && punchCollider.right.collider.position.x + punchCollider.right.collider.width < player.collider.position.x + player.width)
-                    ||
-                    (punchCollider.right.collider.position.x < player.collider.position.x + player.collider.width
-                        && punchCollider.right.collider.position.x > player.collider.position.x)
-                    && punchCollider.right.collider.position.y > player.collider.position.y - 10
-                    && punchCollider.right.collider.position.y < player.collider.position.y + player.collider.height) {
+            if (rightPunchCollider.isActive) {
+                if ((rightPunchColliderX + punchWidth > playerColliderX
+                    && rightPunchColliderX + punchWidth < playerColliderX + playerWidth)
+                    || (rightPunchColliderX < playerColliderX + playerWidth
+                        && rightPunchColliderX > playerColliderX)
+                    && rightPunchColliderY > playerColliderY - 10
+                    && rightPunchColliderY < playerColliderY + playerHeight) {
                     console.log('punched from my left')
                     getPunched(player, 'right')
                 }
-            } else if (punchCollider.left.collider.isActive) {
-                if ((punchCollider.left.collider.position.x < player.collider.position.x + player.collider.width
-                    && punchCollider.left.collider.position.x > player.collider.position.x)
-                    || (punchCollider.left.collider.position.x + punchCollider.left.collider.width > player.collider.position.x
-                        && punchCollider.left.collider.position.x + punchCollider.left.collider.width < player.collider.position.x + player.width)
-                    && punchCollider.left.collider.position.y > player.collider.position.y - 10
-                    && punchCollider.left.collider.position.y < player.collider.position.y + player.collider.height) {
+            } else if (leftPunchCollider.isActive) {
+                if ((leftPunchColliderX < playerColliderX + playerWidth
+                    && leftPunchColliderX > playerColliderX)
+                    || (leftPunchColliderX + punchWidth > playerColliderX
+                        && leftPunchColliderX + punchWidth < playerColliderX + playerWidth)
+                    && leftPunchColliderY > playerColliderY - 10
+                    && leftPunchColliderY < playerColliderY + playerHeight) {
                     console.log('punched from my right')
                     getPunched(player, 'left')
                 }
