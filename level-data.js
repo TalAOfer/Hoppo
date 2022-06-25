@@ -291,9 +291,30 @@ const beach = new Level({
         imgSrc: './img/Level-Assets/Platforms/Beach/beach-ground.png',
         borderY: 1,
         borderWidth: 1
+    }),new Sprite({
+        position: {
+            x: 58,
+            y: 680 -12
+        },
+        width: 20,
+        height: 12,
+        imgSrc: './img/Level-Assets/Props/beach/bottle.png',
+        borderY : 1,
+        borderWidth: 1,
+        isActive: false 
+    }),new Sprite({
+        position: {
+            x: 350,
+            y: 680 - 112
+        },
+        width: 64,
+        height: 112,
+        imgSrc: './img/Level-Assets/Props/beach/tree2.png',
+        borderY: 1,
+        borderWidth: 1
     }), new Sprite({
         position: {
-            x: 300,
+            x: 275,
             y: 400
         },
         width: 112,
@@ -302,6 +323,16 @@ const beach = new Level({
         borderY: 1,
         borderWidth: 1,
         isWall: true 
+    }),new Sprite({
+        position: {
+            x: 300,
+            y: 400 - 88
+        },
+        width: 38,
+        height: 88,
+        imgSrc: './img/Level-Assets/Props/beach/tree.png',
+        borderY: 1,
+        borderWidth: 1
     }), new Sprite({
         position: {
             x: 90,
@@ -320,6 +351,17 @@ const beach = new Level({
         width: 192,
         height: 48,
         imgSrc: './img/Level-Assets/Platforms/Beach/beach-sideblock.png',
+        borderY: 1,
+        borderWidth: 1,
+        isWall: true 
+    }), new Sprite({
+        position: {
+            x: 192 - 70,
+            y: 530 - 720 - 45
+        },
+        width: 68,
+        height: 46,
+        imgSrc: './img/Level-Assets/Props/beach/rock.png',
         borderY: 1,
         borderWidth: 1,
         isWall: true 
@@ -422,7 +464,7 @@ const beach = new Level({
         borderY : 1,
         borderWidth: 1,
         isWall: true 
-    }),,new Sprite({
+    }),new Sprite({
         position: {
             x: 58,
             y: -562 -92

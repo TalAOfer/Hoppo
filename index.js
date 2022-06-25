@@ -22,10 +22,12 @@ let player
 let currentScene = beachScene;
 
 const fps = 90
+let frame
 //Handling the global updating , gets called every frame
 function animate(){
     //calls animate function every window frame
-    setTimeout(() => {
+    window.clearTimeout(frame)
+    frame = setTimeout(() => {
         window.requestAnimationFrame(animate)
         //update current scene
         // currentPlayers.forEach(player => {
@@ -43,6 +45,8 @@ function animate(){
             animalType : currentPlayers[mySocketId].animalType,
             isAttacking : currentPlayers[mySocketId].isAttacking
         })
+        c.save()
+        c.restore()
         
         // })
  
