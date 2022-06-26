@@ -319,6 +319,7 @@ function renderGame(scene) {
     const platforms = scene.platforms
     const players = scene.players
 
+    c.clearRect(0, 0, canvas.width, canvas.height)
     //draw background
     c.drawImage(
         background.img,

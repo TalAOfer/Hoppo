@@ -11,7 +11,7 @@ socket.on("connect", () => {
 socket.on('serverToClient', serverPlayers => {
     // //console.log(serverPlayers);
     // //console.log(serverPlayers);
-    playersFound = {}
+    const playersFound = {}
     if(currentPlayers[mySocketId] === undefined && player){
         currentPlayers[mySocketId] = player;
     }
@@ -20,6 +20,14 @@ socket.on('serverToClient', serverPlayers => {
             // //console.log(serverPlayers[id]);
             // currentPlayers[id].animalType = serverPlayers[id].animalType
             currentPlayers[id] = createPlayer(serverPlayers[id].animalType)
+            currentPlayers[id].sprites.idle.right.src = `./img/Animal-Assets/${serverPlayers[id].animalType}/${serverPlayers[id].animalType}-right.png`
+            currentPlayers[id].sprites.idle.left.src = `./img/Animal-Assets/${serverPlayers[id].animalType}/${serverPlayers[id].animalType}-left.png`
+            currentPlayers[id].sprites.idle.right.src = `./img/Animal-Assets/${serverPlayers[id].animalType}/${serverPlayers[id].animalType}-charge-right.png`
+            currentPlayers[id].sprites.idle.left.src = `./img/Animal-Assets/${serverPlayers[id].animalType}/${serverPlayers[id].animalType}-charge-left.png`
+            currentPlayers[id].sprites.idle.right.src = `./img/Animal-Assets/${serverPlayers[id].animalType}/${serverPlayers[id].animalType}-jump-right.png`
+            currentPlayers[id].sprites.idle.left.src = `./img/Animal-Assets/${serverPlayers[id].animalType}/${serverPlayers[id].animalType}-jump-left.png`
+            currentPlayers[id].sprites.idle.right.src = `./img/Animal-Assets/${serverPlayers[id].animalType}/${serverPlayers[id].animalType}-fall-right.png`
+            currentPlayers[id].sprites.idle.left.src = `./img/Animal-Assets/${serverPlayers[id].animalType}/${serverPlayers[id].animalType}-fall-left.png`
         }
         if(player){
             playersFound[id] = true
@@ -30,6 +38,12 @@ socket.on('serverToClient', serverPlayers => {
             currentPlayers[id].animalType = serverPlayers[id].animalType
             currentPlayers[id].sprites.idle.right.src = `./img/Animal-Assets/${serverPlayers[id].animalType}/${serverPlayers[id].animalType}-right.png`
             currentPlayers[id].sprites.idle.left.src = `./img/Animal-Assets/${serverPlayers[id].animalType}/${serverPlayers[id].animalType}-left.png`
+            currentPlayers[id].sprites.charge.right.src = `./img/Animal-Assets/${serverPlayers[id].animalType}/${serverPlayers[id].animalType}-charge-right.png`
+            currentPlayers[id].sprites.charge.left.src = `./img/Animal-Assets/${serverPlayers[id].animalType}/${serverPlayers[id].animalType}-charge-left.png`
+            currentPlayers[id].sprites.jump.right.src = `./img/Animal-Assets/${serverPlayers[id].animalType}/${serverPlayers[id].animalType}-jump-right.png`
+            currentPlayers[id].sprites.jump.left.src = `./img/Animal-Assets/${serverPlayers[id].animalType}/${serverPlayers[id].animalType}-jump-left.png`
+            currentPlayers[id].sprites.fall.right.src = `./img/Animal-Assets/${serverPlayers[id].animalType}/${serverPlayers[id].animalType}-fall-right.png`
+            currentPlayers[id].sprites.fall.left.src = `./img/Animal-Assets/${serverPlayers[id].animalType}/${serverPlayers[id].animalType}-fall-left.png`
         }
     }
     for(let id in currentPlayers){

@@ -13,28 +13,26 @@ const jumpMaxGauge = 2000;
 // let currentPlayers = []
 
 //creating scene 1 and attaching a background and its platforms to it 
-const scene1 = new Scene(level1,currentPlayers)
-const scene2 = new Scene(level2,currentPlayers)
-const scene3 = new Scene(level3,currentPlayers);
+// const scene1 = new Scene(level1,currentPlayers)
+// const scene2 = new Scene(level2,currentPlayers)
+// const scene3 = new Scene(level3,currentPlayers);
 const beachScene = new Scene(beach,currentPlayers);
 let player
 //defaulting current scene to scene 1
 let currentScene = beachScene;
 
 const fps = 90
-let frame
 //Handling the global updating , gets called every frame
 function animate(){
     //calls animate function every window frame
-    window.clearTimeout(frame)
-    frame = setTimeout(() => {
+    setTimeout(() => {
         window.requestAnimationFrame(animate)
         //update current scene
         // currentPlayers.forEach(player => {
         // //console.log(currentPlayers);
 
         currentScene.players = currentPlayers
-        handleCamera(currentPlayers[mySocketId])
+        if(currentPlayers[mySocketId].velocity.y !== 0) handleCamera(currentPlayers[mySocketId])
         renderGame(currentScene)
         keyHandlerFunc(currentPlayers[mySocketId])
         currentPlayers[mySocketId].update();
@@ -45,9 +43,9 @@ function animate(){
             animalType : currentPlayers[mySocketId].animalType,
             isAttacking : currentPlayers[mySocketId].isAttacking
         })
-        c.save()
-        c.restore()
-        
+        // c.save()
+        // c.restore()
+        // finishedFrame = true
         // })
  
     }
@@ -64,7 +62,7 @@ function startGame(chosenAnimalType){
     playAudioOnce('landSfx')
     container.prepend(canvas)
     player = createPlayer(chosenAnimalType)
-    animate();
+    animate()
 }
 
 function endGame(){
@@ -79,6 +77,7 @@ function handleCamera(player){
     let scroll = 0
     if(player.position.y < 358 && player.position.y > -581){
         scroll = Math.floor(player.velocity.y / 1.2)
+        console.log(scroll);
         c.translate(0,(-scroll))
     }else if(player.position.y > 358){
         c.setTransform(1, 0, 0, 1, 0, 0);
