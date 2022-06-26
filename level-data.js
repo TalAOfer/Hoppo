@@ -284,7 +284,7 @@ const beach = new Level({
     ,platforms : [new Sprite({
         position: {
             x: 0,
-            y: 680
+            y: 680 +720
         },
         width: 480,
         height: 47,
@@ -294,7 +294,7 @@ const beach = new Level({
     }),new Sprite({
         position: {
             x: 58,
-            y: 680 -12
+            y: 680 -12 +720
         },
         width: 20,
         height: 12,
@@ -305,7 +305,7 @@ const beach = new Level({
     }),new Sprite({
         position: {
             x: 350,
-            y: 680 - 112
+            y: 680 - 112 +720
         },
         width: 64,
         height: 112,
@@ -315,7 +315,7 @@ const beach = new Level({
     }), new Sprite({
         position: {
             x: 275,
-            y: 400
+            y: 400 +720
         },
         width: 112,
         height: 48,
@@ -326,7 +326,7 @@ const beach = new Level({
     }),new Sprite({
         position: {
             x: 300,
-            y: 400 - 88
+            y: 400 - 88 +720
         },
         width: 38,
         height: 88,
@@ -336,7 +336,7 @@ const beach = new Level({
     }), new Sprite({
         position: {
             x: 90,
-            y: 600
+            y: 600 +720
         },
         width: 48,
         height: 5,
@@ -346,7 +346,7 @@ const beach = new Level({
     }), new Sprite({
         position: {
             x: 0,
-            y: 210
+            y: 210 +720
         },
         width: 192,
         height: 48,
@@ -357,7 +357,7 @@ const beach = new Level({
     }), new Sprite({
         position: {
             x: 192 - 70,
-            y: 530 - 720 - 45
+            y: 530 - 45
         },
         width: 68,
         height: 46,
@@ -368,7 +368,7 @@ const beach = new Level({
     }),  new Sprite({
         position: {
             x: 0,
-            y: 530 - 720
+            y: 530 
         },
         width: 192,
         height: 48,
@@ -379,7 +379,7 @@ const beach = new Level({
     }),new Sprite({
         position: {
             x: 200,
-            y: 60
+            y: 60 +720
         },
         width: 48,
         height: 48,
@@ -390,7 +390,7 @@ const beach = new Level({
     }),new Sprite({
         position: {
             x: 360,
-            y: 10
+            y: 10 +720
         },
         width: 16,
         height: 16,
@@ -401,7 +401,7 @@ const beach = new Level({
     }), new Sprite({
         position: {
             x: 165,
-            y: -600
+            y: -600 +720
         },
         width: 48,
         height: 48,
@@ -412,7 +412,7 @@ const beach = new Level({
     }), new Sprite({
         position: {
             x: 290,
-            y: 320 - 720
+            y: 320
         },
         width: 48,
         height: 48,
@@ -423,7 +423,7 @@ const beach = new Level({
     }), new Sprite({
         position: {
             x: -30,
-            y: -500
+            y: -500 +720
         },
         width: 112,
         height: 48,
@@ -433,8 +433,8 @@ const beach = new Level({
         isWall: true 
     }),new Sprite({
         position: {
-            x: 280,
-            y: -600
+            x: 280, 
+            y: -600 +720
         },
         width: 16,
         height: 112,
@@ -442,21 +442,23 @@ const beach = new Level({
         borderY : 1,
         borderWidth: 1,
         isWall: true 
-    }),new Sprite({
+    })
+    // ,new Sprite({
+    //     position: {
+    //         x: 280,
+    //         y: -815 +720
+    //     },
+    //     width: 16,
+    //     height: 112,
+    //     imgSrc: './img/Level-Assets/Platforms/Beach/beach-wall.png',
+    //     borderY : 1,
+    //     borderWidth: 1,
+    //     isWall: true 
+    // })
+    ,new Sprite({
         position: {
-            x: 280,
-            y: -815
-        },
-        width: 16,
-        height: 112,
-        imgSrc: './img/Level-Assets/Platforms/Beach/beach-wall.png',
-        borderY : 1,
-        borderWidth: 1,
-        isWall: true 
-    }),new Sprite({
-        position: {
-            x: 20,
-            y: -562
+            x: 20, 
+            y: -562 +720
         },
         width: 90,
         height: 69,
@@ -467,7 +469,7 @@ const beach = new Level({
     }),new Sprite({
         position: {
             x: 58,
-            y: -562 -92
+            y: -562 -92 +720
         },
         width: 36,
         height: 92,

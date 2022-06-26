@@ -1,22 +1,39 @@
+html{
+   overflow-y: hidden;
+}
+
+body{
+   margin: 0;
+   background-color:black;
+}
 #canvas-container {
     width: 100%;
+    height: 100%;
     text-align:center;
     display: flex;
     flex-direction: column;
     align-items: center;
 
  }
-
+#shade {
+   width: 100%;
+   height: 100%;
+   position: absolute;
+   background-color:black;
+   top: 720;
+   z-index: 10;
+}
  .screen {
    height: 1440px; 
     width: 480px;
-    background-image: url('/img/Level-Assets/Background/css-bg.png');
+    background-image: url('./img/Level-Assets/Background/css-bg.png');
    position: absolute;
    z-index: -1;
    display: flex;
    justify-content: space-between;
     flex-wrap: wrap;
     align-items: flex-end;
+    margin-top: -720px;
  }
 
  canvas {

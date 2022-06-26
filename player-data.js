@@ -4,7 +4,7 @@ function createPlayer(animalType){
     const player = new Character({
         position: {
         x: Math.floor(getRandomInt(100,450)),
-        y: 600},
+        y: 600 +720},
         velocity: {
         x: 0,
         y: 0

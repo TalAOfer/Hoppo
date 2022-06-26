@@ -340,25 +340,25 @@ function renderGame(scene) {
 
 
     //draw each platform
-    platforms.forEach(platform => {
-        c.drawImage(
-            platform.img,
-            platform.currentFrame * (platform.img.width / platform.frameMax),
-            0,
-            platform.img.width / platform.frameMax,
-            platform.img.height,
-            platform.position.x,
-            platform.position.y,
-            (platform.img.width / platform.frameMax) * platform.scale,
-            platform.img.height * platform.scale)
+    // platforms.forEach(platform => {
+    //     c.drawImage(
+    //         platform.img,
+    //         platform.currentFrame * (platform.img.width / platform.frameMax),
+    //         0,
+    //         platform.img.width / platform.frameMax,
+    //         platform.img.height,
+    //         platform.position.x,
+    //         platform.position.y,
+    //         (platform.img.width / platform.frameMax) * platform.scale,
+    //         platform.img.height * platform.scale)
 
-        //draw each platform collider
-        /*
-        c.fillRect(platform.collider.position.x,
-            platform.collider.position.y, 
-            platform.collider.width, 
-            platform.collider.height)*/
-    })
+    //     //draw each platform collider
+    //     /*
+    //     c.fillRect(platform.collider.position.x,
+    //         platform.collider.position.y, 
+    //         platform.collider.width, 
+    //         platform.collider.height)*/
+    // })
     //draw players
     // players.forEach(player => {
     for(let id in players){

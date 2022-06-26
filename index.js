@@ -1,15 +1,16 @@
 //const canvas = document.querySelector('canvas');
 const canvas = document.createElement('canvas')
 const c = canvas.getContext('2d');
+const elCanvas = document.getElementById('screen')
 
 canvas.width = 480;
-canvas.height = 720; 
+canvas.height = 1440; 
 // c.fillRect(0, 0, canvas.width, canvas.height);
 
 //global variables
 let gravity = 0.7;
 const jumpMaxGauge = 2000;
-
+let lastCanvasPos = -720
 // let currentPlayers = []
 
 //creating scene 1 and attaching a background and its platforms to it 
@@ -30,9 +31,9 @@ function animate(){
         //update current scene
         // currentPlayers.forEach(player => {
         // //console.log(currentPlayers);
-
+        console.log(currentPlayers[mySocketId].position.y);
         currentScene.players = currentPlayers
-        // handleCamera(currentPlayers[mySocketId])
+        handleCamera(currentPlayers[mySocketId])
         renderGame(currentScene)
         keyHandlerFunc(currentPlayers[mySocketId])
         currentPlayers[mySocketId].update();
@@ -75,15 +76,18 @@ function endGame(){
 
 function handleCamera(player){
     let scroll = 0
-    if(player.position.y < 358 && player.position.y > -581){
-        scroll = Math.floor(player.velocity.y / 1.2)
-        console.log(scroll);
-        c.translate(0,(-scroll))
-    }else if(player.position.y > 358){
-        c.setTransform(1, 0, 0, 1, 0, 0);
-    } else if(player.position.y < -581){
-        c.save();
-        c.restore()
+    let sentCanvasPos = lastCanvasPos
+    if(lastCanvasPos >= 0)sentCanvasPos = 0
+    if(player.position.y < 1080 && player.position.y >= 254){
+        scroll = Math.floor(player.velocity.y)
+        // console.log(scroll);
+        // c.translate(0,(-scroll))
+        // console.log(lastCanvasPos);
+        lastCanvasPos = lastCanvasPos - scroll
+        elCanvas.style['margin-top'] = `${sentCanvasPos}px`
+    }else if(player.position.y > 1080){
+        lastCanvasPos = -720
+        elCanvas.style['margin-top'] = `${sentCanvasPos}px`
     }
-    c.save();
+    // c.save();
 }
