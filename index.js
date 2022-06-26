@@ -32,11 +32,7 @@ function animate(){
         // //console.log(currentPlayers);
 
         currentScene.players = currentPlayers
-<<<<<<< HEAD
         // handleCamera(currentPlayers[mySocketId])
-=======
-        if(currentPlayers[mySocketId].velocity.y !== 0) handleCamera(currentPlayers[mySocketId])
->>>>>>> 7f1d739cfcf754228d58492ce4ed739657850905
         renderGame(currentScene)
         keyHandlerFunc(currentPlayers[mySocketId])
         currentPlayers[mySocketId].update();
