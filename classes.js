@@ -27,8 +27,8 @@ class Sprite {
         this.collider.position.y = player.position.y + 27
         this.collider.width = 27
         this.collider.height = 27
-        // console.log('x:', this.collider.position.x)
-        // console.log('y:', this.collider.position.y)
+        // //console.log('x:', this.collider.position.x)
+        // //console.log('y:', this.collider.position.y)
         c.drawImage(
             this.img,
             this.currentFrame * (this.img.width / this.frameMax),
@@ -56,8 +56,8 @@ class Sprite {
             if (this.currentFrame < this.frameMax) {
                 this.currentFrame++
                 storedFrames++
-                // console.log('frames ', this.currentFrame);
-                // console.log('stored ', storedFrames);
+                // //console.log('frames ', this.currentFrame);
+                // //console.log('stored ', storedFrames);
             } else {
                 this.currentFrame = 0
                 storedFrames = 0 
@@ -314,11 +314,12 @@ class Scene {
 }
 
 function renderGame(scene) {
-    //console.log(scene)
+    ////console.log(scene)
     const background = scene.background
     const platforms = scene.platforms
     const players = scene.players
 
+    c.clearRect(0, 0, canvas.width, canvas.height)
     //draw background
     // c.drawImage(
     //     background.img,

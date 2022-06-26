@@ -52,19 +52,19 @@ function checkBorderBounce(player) {
         switch (player.currentSprite) {
             case 'jump-right':
                 player.currentSprite = 'jump-left'
-                console.log('wtf1')
+                //console.log('wtf1')
                 break;
             case 'jump-left':
                 player.currentSprite = 'jump-right'
-                console.log('wtf2')
+                //console.log('wtf2')
                 break;
             case 'fall-right':
                 player.currentSprite = 'fall-left'
-                console.log('wtf1')
+                //console.log('wtf1')
                 break;
             case 'fall-left':
                 player.currentSprite = 'fall-right'
-                console.log('wtf2')
+                //console.log('wtf2')
                 break;
         }
     }
@@ -112,7 +112,7 @@ function _handlePlatformCollision(player) {
 }
 
 function checkWallHeadbutt(player, platform) {
-    const playerTop = player.position.y - player.velocity.y - 6
+    const playerTop = player.position.y - player.velocity.y 
     const playerMiddle = player.position.x + player.width / 2
     const playerBottom = player.collider.position.y + player.collider.height
 
@@ -147,7 +147,7 @@ function checkWallHeadbutt(player, platform) {
 }
 
 function _handleWallHeadbutt(player) {
-    console.log('did');
+    //console.log('did');
     if (player.isShovedY === false) {
         player.velocity.y *= -0.4
         playAudioOnce('wallSfx')
@@ -159,9 +159,9 @@ function _handleWallHeadbutt(player) {
 
 function checkWallCollide(player, platform) {
 
-    const playerRight = player.position.x + player.width
-    const playerLeft = player.position.x
-    const playerTop = player.position.y - player.velocity.y - 6
+    const playerRight = player.position.x + player.width - 5
+    const playerLeft = player.position.x + 5
+    const playerTop = player.position.y - player.velocity.y
     const playerBottom = player.position.y + player.height
 
     const platformBorderLeft = platform.position.x
@@ -226,24 +226,24 @@ function checkYWallCollide(player, playerTop, playerBottom, platformBorderTop, p
 function _handleWallCollide(player) {
     if (player.isShovedX === false && !player.isOnPlatform) {
         playAudioOnce('wallSfx')
-        player.velocity.x *= -1
-        console.log('miki');
+        player.velocity.x *= -0.3
+        //console.log('miki');
         switch (player.currentSprite) {
             case 'jump-right':
                 player.currentSprite = 'jump-left'
-                console.log('wtf1')
+                //console.log('wtf1')
                 break;
             case 'jump-left':
                 player.currentSprite = 'jump-right'
-                console.log('wtf2')
+                //console.log('wtf2')
                 break;
             case 'fall-right':
                 player.currentSprite = 'fall-left'
-                console.log('wtf1')
+                //console.log('wtf1')
                 break;
             case 'fall-left':
                 player.currentSprite = 'fall-right'
-                console.log('wtf2')
+                //console.log('wtf2')
                 break;
         }
         player.isShovedX = true
@@ -274,7 +274,7 @@ function checkPunched(player) {
                         && rightPunchColliderX > playerColliderX)
                     && rightPunchColliderY > playerColliderY - 10
                     && rightPunchColliderY < playerColliderY + playerHeight) {
-                    console.log('punched from my left')
+                    //console.log('punched from my left')
                     getPunched(player, 'right')
                 }
             } else if (leftPunchCollider.isActive) {
@@ -284,7 +284,7 @@ function checkPunched(player) {
                         && leftPunchColliderX + punchWidth < playerColliderX + playerWidth)
                     && leftPunchColliderY > playerColliderY - 10
                     && leftPunchColliderY < playerColliderY + playerHeight) {
-                    console.log('punched from my right')
+                    //console.log('punched from my right')
                     getPunched(player, 'left')
                 }
             }
