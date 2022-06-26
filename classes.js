@@ -320,22 +320,22 @@ function renderGame(scene) {
     const players = scene.players
 
     //draw background
-    c.drawImage(
-        background.img,
-        background.currentFrame * (background.img.width / background.frameMax),
-        0,
-        background.img.width / background.frameMax,
-        background.img.height,
-        background.position.x,
-        background.position.y,
-        (background.img.width / background.frameMax) * background.scale,
-        background.img.height * background.scale)
+    // c.drawImage(
+    //     background.img,
+    //     background.currentFrame * (background.img.width / background.frameMax),
+    //     0,
+    //     background.img.width / background.frameMax,
+    //     background.img.height,
+    //     background.position.x,
+    //     background.position.y,
+    //     (background.img.width / background.frameMax) * background.scale,
+    //     background.img.height * background.scale)
 
-    //draw background collider
-    c.fillRect(background.collider.position.x,
-        background.collider.position.y,
-        background.collider.width,
-        background.collider.height)
+    // //draw background collider
+    // c.fillRect(background.collider.position.x,
+    //     background.collider.position.y,
+    //     background.collider.width,
+    //     background.collider.height)
 
 
     //draw each platform

@@ -4,7 +4,7 @@ const c = canvas.getContext('2d');
 
 canvas.width = 480;
 canvas.height = 720; 
-c.fillRect(0, 0, canvas.width, canvas.height);
+// c.fillRect(0, 0, canvas.width, canvas.height);
 
 //global variables
 let gravity = 0.7;
@@ -32,7 +32,7 @@ function animate(){
         // console.log(currentPlayers);
 
         currentScene.players = currentPlayers
-        handleCamera(currentPlayers[mySocketId])
+        // handleCamera(currentPlayers[mySocketId])
         renderGame(currentScene)
         keyHandlerFunc(currentPlayers[mySocketId])
         currentPlayers[mySocketId].update();
@@ -56,7 +56,7 @@ const menu2 = document.getElementById('main-menu')
 function startGame(chosenAnimalType){
     const menu = document.getElementById('main-menu')
     menu.remove()
-    const container = document.getElementById('canvas-container')
+    const container = document.getElementById('screen')
     playAudioOnce('landSfx')
     container.prepend(canvas)
     player = createPlayer(chosenAnimalType)
