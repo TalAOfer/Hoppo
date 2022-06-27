@@ -1,6 +1,6 @@
 const socket = io("http://localhost:3001");
 let mySocketId
-const currentPlayers = {}
+let currentPlayers = {}
 
 socket.on("connect", () => {
     mySocketId = socket.id

@@ -1,5 +1,5 @@
 class Sprite {
-    constructor({ position, imgSrc, width, height, borderY = 1, borderWidth = 1, isWall = false, isActive = true, scale = 1, frameMax = 1 }) {
+    constructor({ position, imgSrc, width, height, borderY = 1, borderWidth = 1, isWall = false, isActive = true, isFinishline = false ,scale = 1, frameMax = 1 }) {
         this.img = new Image(width, height);
         this.img.src = imgSrc;
         this.position = position
@@ -18,7 +18,8 @@ class Sprite {
             width: borderWidth === 1 ? this.width : borderWidth,
             height: this.height - this.height,
             isActive: isActive === true ? true : isActive,
-            isWall: isWall === false ? false : isWall
+            isWall: isWall === false ? false : isWall,
+            isFinishline :isFinishline === false ? false : isFinishline
         }
     }
     //render the img and animate it 
@@ -127,6 +128,8 @@ class Character {
         }
         this.lastAttack = Date.now() - 1000
         this.isAttacking = false
+
+        this.didWin = false
 
         this.sprites.idle.right.src = `./img/Animal-Assets/${this.animalType}/${this.animalType}-right.png`
         this.sprites.idle.left.src = `./img/Animal-Assets/${this.animalType}/${this.animalType}-left.png`
@@ -313,7 +316,7 @@ class Scene {
     }
 }
 
-function renderGame(scene) {
+function renderGame(scene, endGame) {
     ////console.log(scene)
     const background = scene.background
     const platforms = scene.platforms
@@ -362,6 +365,10 @@ function renderGame(scene) {
     //draw players
     // players.forEach(player => {
     for(let id in players){
+        if(players[id].didWin){
+            players[id].didWin = false
+            endGame()
+        }
         const player = players[id]
         c.drawImage(
             getCurrentSpriteIMG(player),

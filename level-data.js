@@ -465,7 +465,8 @@ const beach = new Level({
         imgSrc: './img/Level-Assets/Props/beach/planktower.png',
         borderY : 1,
         borderWidth: 1,
-        isWall: true 
+        isWall: true ,
+        isFinishline: true
     }),new Sprite({
         position: {
             x: 58,
