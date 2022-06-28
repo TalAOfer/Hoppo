@@ -80,6 +80,7 @@ class Character {
         this.frameMax = frameMax
         this.scale = scale
         this.animalType = animalType
+        this.isAlive = false
         // this.animalType = serverAnimalType === 'goat' ? getRandomAnimalType() : serverAnimalType
 
         this.sprites = {

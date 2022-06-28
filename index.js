@@ -42,7 +42,9 @@ function animate(){
             y: currentPlayers[mySocketId].position.y, 
             currentSprite: currentPlayers[mySocketId].currentSprite,
             animalType : currentPlayers[mySocketId].animalType,
-            isAttacking : currentPlayers[mySocketId].isAttacking
+            isAttacking : currentPlayers[mySocketId].isAttacking,
+            didWin : currentPlayers[mySocketId].didWin,
+            isAlive: currentPlayers[mySocketId].isAlive
         })
         // c.save()
         // c.restore()
@@ -70,14 +72,13 @@ function startGame(chosenAnimalType){
 const menu2 = document.getElementById('main-menu')
 function endGame(){
     // delete player
-    for(let id in currentPlayers){
-        delete currentPlayers[id]
-    }
-    console.log(currentPlayers);
-    cancelAnimationFrame(animateId)
     socket.emit('endGame')
+    // for(let id in currentPlayers){
+    //     delete currentPlayers[id]
+    // }ה
+    cancelAnimationFrame(animateId)
     canvas.remove();
-    // currentPlayers = {}
+    currentPlayers = {}
     const container = document.getElementById('canvas-container')
     container.prepend(menu2)
     currentScene = beach
