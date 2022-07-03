@@ -36,8 +36,8 @@ class Sprite {
             0,
             this.img.width / this.frameMax,
             this.img.height,
-            this.position.x + (player.currentSprite === 'left' ? - 36 : 0),
-            this.position.y - 25,
+            this.position.x + (player.currentSprite === 'left' ? - 16 : - 20),
+            this.position.y - 18,
             (this.img.width / this.frameMax) * this.scale,
             this.img.height * this.scale)
             if (this.currentFrame > 3 && this.currentFrame < 8) {
