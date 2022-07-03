@@ -85,6 +85,9 @@ function checkPlatformCollision(player) {
                 && playerBottom + player.velocity.y >= platformTop
                 && getPlayerColliderX(player) + player.collider.width >= platform.collider.position.x - 1
                 && getPlayerColliderX(player) <= platform.collider.position.x + platform.collider.width - 1) {
+                    if(platform.collider.isFinishline){
+                        player.didWin = true
+                    }
                 _handlePlatformCollision(player)
 
             }

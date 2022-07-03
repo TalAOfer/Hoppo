@@ -17,13 +17,16 @@ function createPlayer(animalType){
         height: 66,
         animalType: animalType
     })
+    player.isAlive = true
     // players[mySocketId] = player
     socket.emit('newPlayer', {
         x: player.position.x , 
         y: player.position.y, 
         currentSprite: player.currentSprite,
         animalType : player.animalType,
-        isAttacking : false})
+        isAttacking : false,
+        didWin : player.didWin,
+        isAlive : player.isAlive})
     return player
 }
 

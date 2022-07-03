@@ -21,20 +21,20 @@ const beachScene = new Scene(beach,currentPlayers);
 let player
 //defaulting current scene to scene 1
 let currentScene = beachScene;
-
+let animateId
 const fps = 90
 //Handling the global updating , gets called every frame
 function animate(){
     //calls animate function every window frame
     setTimeout(() => {
-        window.requestAnimationFrame(animate)
+       animateId = window.requestAnimationFrame(animate)
         //update current scene
         // currentPlayers.forEach(player => {
         // //console.log(currentPlayers);
-        console.log(currentPlayers[mySocketId].position.y);
+        // console.log(currentPlayers[mySocketId].position.y);
         currentScene.players = currentPlayers
         handleCamera(currentPlayers[mySocketId])
-        renderGame(currentScene)
+        renderGame(currentScene, endGame)
         keyHandlerFunc(currentPlayers[mySocketId])
         currentPlayers[mySocketId].update();
         socket.emit('updateToServer', {
@@ -42,7 +42,9 @@ function animate(){
             y: currentPlayers[mySocketId].position.y, 
             currentSprite: currentPlayers[mySocketId].currentSprite,
             animalType : currentPlayers[mySocketId].animalType,
-            isAttacking : currentPlayers[mySocketId].isAttacking
+            isAttacking : currentPlayers[mySocketId].isAttacking,
+            didWin : currentPlayers[mySocketId].didWin,
+            isAlive: currentPlayers[mySocketId].isAlive
         })
         // c.save()
         // c.restore()
@@ -55,25 +57,32 @@ function animate(){
 
 
 
-const menu2 = document.getElementById('main-menu')
 function startGame(chosenAnimalType){
+    c.clearRect(0, 0, canvas.width, canvas.height)
     const menu = document.getElementById('main-menu')
     menu.remove()
     const container = document.getElementById('screen')
     playAudioOnce('landSfx')
     container.prepend(canvas)
+    console.log(chosenAnimalType);
     player = createPlayer(chosenAnimalType)
     animate()
 }
 
+const menu2 = document.getElementById('main-menu')
 function endGame(){
+    // delete player
+    socket.emit('endGame')
+    // for(let id in currentPlayers){
+    //     delete currentPlayers[id]
+    // }ה
+    cancelAnimationFrame(animateId)
     canvas.remove();
-    delete player
+    currentPlayers = {}
     const container = document.getElementById('canvas-container')
     container.prepend(menu2)
-    currentScene = scene1
+    currentScene = beach
 }
-
 function handleCamera(player){
     let scroll = 0
     let sentCanvasPos = lastCanvasPos
