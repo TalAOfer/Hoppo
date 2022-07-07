@@ -46,7 +46,7 @@ function connected(socket) {
   socket.on('updateToServer', (player) => {
     // console.log('update to server');
     serverPlayers[socket.id] = player
-    io.emit('serverToClient', serverPlayers)
+    socket.broadcast.emit('serverToClient', serverPlayers)
     // console.log('server to client')
   })
 
