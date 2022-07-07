@@ -34,14 +34,14 @@ function connected(socket) {
     }
     console.log('current serverPlayers : ' + Object.keys(serverPlayers).length);
     // socket.emit('playerId', socket.id)
-    io.emit('newPlayerToClient', {serverPlayers, createdPlayerId: socket.id})
+    socket.broadcast.emit('newPlayerToClient', {serverPlayers, createdPlayerId: socket.id})
   })
   socket.on('disconnect', () => {
     delete serverPlayers[socket.id]
     console.log('Goodbye id :' + socket.id + ", has disconnected");
     console.log('current serverPlayers : ' + Object.keys(serverPlayers).length);
     console.log(serverPlayers);
-    io.emit('disconnectToClient', socket.id)
+    socket.broadcast.emit('disconnectToClient', socket.id)
   })
   socket.on('updateToServer', (player) => {
     // console.log('update to server');
