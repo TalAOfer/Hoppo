@@ -26,7 +26,7 @@ const fps = 140
 //Handling the global updating , gets called every frame
 function animate(){
     //calls animate function every window frame
-    setTimeout(() => {
+    // setTimeout(() => {
        animateId = window.requestAnimationFrame(animate)
         //update current scene
         // currentPlayers.forEach(player => {
@@ -52,8 +52,8 @@ function animate(){
         // })
  
     }
-    ,1000/fps)
-}
+//     ,1000/fps)
+// }
 
 
 
