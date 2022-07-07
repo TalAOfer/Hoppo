@@ -22,7 +22,7 @@ let player
 //defaulting current scene to scene 1
 let currentScene = beachScene;
 let animateId
-const fps = 90
+const fps = 140
 //Handling the global updating , gets called every frame
 function animate(){
     //calls animate function every window frame
