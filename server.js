@@ -3,7 +3,7 @@ const { emit } = require('nodemon')
 const app = express()
 // const port = 3001
 const port = process.env.port || 3001
-app.use(express.static('./public'))
+app.use(express.static('public'))
 const http = require('http').Server(app)
 // const server = app.listen(port)
 // const io = require('socket.io')(port, {
