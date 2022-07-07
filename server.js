@@ -1,23 +1,16 @@
 const express = require('express')
 const { emit } = require('nodemon')
 const app = express()
-// const port = 3001
-const port = process.env.port || 3001
+const PORT = process.env.PORT || 3001
 app.use(express.static('public'))
 const http = require('http').Server(app)
-// const server = app.listen(port)
-// const io = require('socket.io')(port, {
-//   cors: {
-//     origin: '*'
-//   }
-// })
 const io = require('socket.io')(http)
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html')
 })
 
-http.listen(port, function(){
-  console.log(`listening on ${port}`);
+http.listen(PORT, function(){
+  console.log(`listening on ${PORT}`);
 })
 
 
